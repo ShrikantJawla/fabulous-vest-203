@@ -1,14 +1,14 @@
-import { Container, Text } from '@chakra-ui/react'
+import { Container, Text,Box } from '@chakra-ui/react'
 import AllRoutes from './components/AllRoutes';
 import Navbar from './components/Navbar';
 
 
 function App() {
   return (
-    <Container maxW='full'>
+    <Box w='full'>
       <Navbar />
       <AllRoutes/>
-    </Container>
+    </Box>
   );
 }
 
