@@ -28,34 +28,34 @@ function HomePage() {
                 <TripSelectors handleImage={handleImage} />
             </Box>
 
-            <Center width='full' display='flex' flexDir={{base:'column',lg:'row'}} justifyContent='center' p='5' gap='10' mb='8'>
-                <VStack h='248px' shadow={shadow} w={{base:'100%',md:'470px'}} >
+            <Center width='full' display='flex' flexDir={{ base: 'column', lg: 'row' }} justifyContent='center' p='5' gap='10' mb='8'>
+                <VStack h={{ base: '200px', md: '248px' }} shadow={shadow} w={{ base: '100%', md: '470px' }} >
                     <HStack >
-                        <VStack p={{base:'4',md:'6'}} >
-                            <Text fontWeight='bold' fontSize={{base:'15px',md:'18px'}}>You and your buddy up for a long drive?</Text>
-                            <Text fontSize={{base:'13px',md:'16px'}}>You earn 500 in Z-Points. Your friend gets 20% off on first booking</Text>
+                        <VStack p={{ base: '4', md: '6' }} >
+                            <Text fontWeight='bold' fontSize={{ base: '15px', md: '18px' }}>You and your buddy up for a long drive?</Text>
+                            <Text fontSize={{ base: '13px', md: '16px' }}>You earn 500 in Z-Points. Your friend gets 20% off on first booking</Text>
                         </VStack>
-                        <Image src='/images/first smaill div img.png' w={{base:'110px',md:'140px'}} h='100%' />
+                        <Image src='/images/first smaill div img.png' w={{ base: '110px', md: '140px' }} h='100%' />
                     </HStack>
                     <Divider />
-                    <HStack py={{base:'0',md:'2',xl:'4'}} pl='5' w='full'>
+                    <HStack py={{ base: '2', md: '2', xl: '4' }} pl='5' w='full'>
                         <BsArrowRight size='22px' color='green' />
                         <Text fontWeight='700' style={{ marginLeft: "15px" }}>REFER FRIENDS</Text>
                     </HStack>
                 </VStack>
-                <HStack h='248px' shadow={shadow} p='5' w={{ base: '100%', md: '470px' }} >
+                <HStack h={{ base: '200px', md: '248px' }} shadow={shadow} p='5' w={{ base: '100%', md: '470px' }} >
                     <Stack textAlign='left' dir='column'>
-                        <Text w='full' fontWeight='bold' fontSize={{base:'18px',md:'24px'}}>UP TO 20% OFF</Text>
-                        <Text fontWeight='700' color='grey' fontSize={{base:'13px',md:'16px'}} style={{ marginBottom: '10px' }}>on your first booking from the app!</Text>
-                        <Text fontSize={{base:'14px',md:'17px'}} color='grey' fontWeight='bold' style={{ marginBottom: '10px' }} border='1px dashed grey' p='3' w='fit-content'>Use Code:ZOOMNEW</Text>
-                        <Text fontWeight='bold' fontSize={{base:'16px',md:'20px'}} color='green'>Install Zoomcar App now!</Text>
+                        <Text w='full' fontWeight='bold' fontSize={{ base: '18px', md: '24px' }}>UP TO 20% OFF</Text>
+                        <Text fontWeight='700' color='grey' fontSize={{ base: '13px', md: '16px' }} style={{ marginBottom: '10px' }}>on your first booking from the app!</Text>
+                        <Text fontSize={{ base: '14px', md: '17px' }} color='grey' fontWeight='bold' style={{ marginBottom: '10px' }} border='1px dashed grey' p='3' w='fit-content'>Use Code:ZOOMNEW</Text>
+                        <Text fontWeight='bold' fontSize={{ base: '16px', md: '20px' }} color='green'>Install Zoomcar App now!</Text>
                     </Stack>
-                    <Image w={{base:'100px',md:'140px'}} src='/images/cellphone.png' />
+                    <Image w={{ base: '100px', md: '140px' }} src='/images/cellphone.png' />
                 </HStack>
             </Center>
 
             <Box w='full' bg='rgba(0, 0, 0, 0.06)' h='fit-content' pt='3' py='3'>
-                <Accordion allowMultiple bg='white' mb='10'>
+                <Accordion bg='white' mb='10'>
                     <AccordionItem textAlign='center'>
                         <Box display='flex' justifyContent='center' >
                             <AccordionButton w='fit-content' gap='4'>

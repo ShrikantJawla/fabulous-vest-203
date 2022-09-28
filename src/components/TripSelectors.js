@@ -13,18 +13,18 @@ function TripSelectors({ handleImage }) {
     }
 
     return (
-        <Tabs isFitted variant='enclosed' mb='130px' w={{base:'95%',md:'400px'}} onChange={(id) => { doChange(id) }}>
+        <Tabs isFitted variant='enclosed' mb='130px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
             <TabList mb='1em' bg='white' h='62px'>
                 <Tab p='7'>
                     <VStack>
                         <BsArrowLeftRight />
-                        <Text>Round Trip</Text>
+                        <Text fontSize={{ base: '13px', md: '16px' }}>Round Trip</Text>
                     </VStack>
                 </Tab>
                 <Tab p='7'>
                     <VStack>
                         <IoAirplaneOutline />
-                        <Text>Airport Round Trip</Text>
+                        <Text fontSize={{ base: '13px', md: '16px' }}>Airport Round Trip</Text>
                     </VStack>
                 </Tab>
             </TabList>
