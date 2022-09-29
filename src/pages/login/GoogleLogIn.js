@@ -5,11 +5,33 @@ import { auth } from './../../Configs/firebaseConfigs';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
+import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { db } from '../../Configs/firebaseConfigs';
+
+
+
+
 
 function GoogleLogIn() {
     const navigate = useNavigate();
+    const [allUsers, setAllUsers] = React.useState([]);
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
     const provider = new GoogleAuthProvider(auth);
+
+    React.useEffect(() => {
+        getDocs(collection(db, 'users'))
+            .then(res => {
+                let d = [];
+                res.docs.forEach(doc => {
+                    d.push({ ...doc.data(), id: doc.id })
+                })
+                setAllUsers(d);
+            }).then(err => {
+                console.log(err);
+            })
+    }, [])
+
+
 
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
@@ -28,8 +50,22 @@ function GoogleLogIn() {
                     email: user.email,
                     mobile: user.phoneNumber,
                     profilePhoto: user.photoURL,
+                    city:''
                 }
+
+                setDoc(doc(db, 'loginedUser', updateData.email), updateData);
+                //reducer login action
                 authDispatch({ type: 'LOGIN', payload: updateData });
+
+                //Receiving the data from firebase and checking the validation
+                // let flag = true;
+                // allUsers.forEach(ele => {
+                //     if (ele.email === updateData.email) {
+                //         flag = false;
+                //     }
+                //     if (flag) addDoc(collection(db, 'users'), updateData);
+                // })
+                setDoc(doc(db, 'users', updateData.email), updateData);
                 navigate('/');
                 // ...
             }).catch((error) => {

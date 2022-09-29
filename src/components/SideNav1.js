@@ -13,6 +13,8 @@ import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { IoHome } from 'react-icons/io5';
 import { AuthContext } from '../Contexts/authContext/authContext';
 import { Link } from 'react-router-dom';
+import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { db } from '../Configs/firebaseConfigs'; 
 
 const hoverStyle = { cursor: 'pointer', backgroundColor: '#E2E8F0' }
 
@@ -20,6 +22,22 @@ function SideNav1() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
     const { authState, authDispatch } = React.useContext(AuthContext);
+    const [currentUserId, setCurrentUserId] = React.useState('');
+    const [currentUser, setCurrentUser] = React.useState({});
+
+    React.useEffect(() => {
+        getDocs(collection(db, 'loginedUser'))
+            .then(res => {
+                let d = [];
+                res.docs.forEach(doc => {
+                    d.push({ ...doc.data(), id: doc.id })
+                })
+                setCurrentUser(d[0]);
+                setCurrentUserId(d[0].id);
+            }).then(err => {
+                console.log(err);
+            })
+    }, []);
 
     function toggleLinkOfProfile() {
         if (authState.isAuth) return '/profile';
@@ -50,6 +68,8 @@ function SideNav1() {
     function handleLogout() {
         authDispatch({ type: 'LOGOUT' });
         onClose();
+        //deleting the current user from firestore
+        deleteDoc(doc(db, 'loginedUser', currentUserId));
     }
 
 
@@ -95,10 +115,10 @@ function SideNav1() {
                             <MdCall size='20px' />
                             <Text>Help & Support</Text>
                         </Box>
-                        {authState.isAuth && <Box onClick={handleLogout} display='flex' gap='3' p='3' _hover={hoverStyle} mb='1' color='red' fontWeight='bold'>
+                        {authState.isAuth && <Link to='/'><Box onClick={handleLogout} display='flex' gap='3' p='3' _hover={hoverStyle} mb='1' color='red' fontWeight='bold'>
                             <RiLogoutCircleRLine size='20px' />
                             <Text>Log out</Text>
-                        </Box>}
+                        </Box></Link>}
                     </DrawerBody>
                 </DrawerContent>
 
