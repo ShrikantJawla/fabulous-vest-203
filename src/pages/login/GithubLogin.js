@@ -11,9 +11,12 @@ function GithubLogin() {
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
     const provider = new GithubAuthProvider(auth);
 
+    function signOut() {
+    }
+
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
-        signInWithPopup(auth, provider)
+        signInWithPopup(auth, new GithubAuthProvider(auth))
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GithubAuthProvider.credentialFromResult(result);
@@ -34,6 +37,7 @@ function GithubLogin() {
                 // ...
             }).catch((error) => {
                 // Handle Errors here.
+                console.log(error);
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 // The email of the user's account used.
@@ -50,6 +54,7 @@ function GithubLogin() {
     return (
         <Box >
             <IconButton onClick={handleSubmit} variant='outline' size='lg' icon={<BsGithub color='#242121' size='28px' />} />
+            <IconButton onClick={signOut} variant='outline' size='lg' icon={<BsGithub color='#242121' size='28px' />} />
         </Box>
     )
 }
