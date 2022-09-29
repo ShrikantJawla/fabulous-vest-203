@@ -1,25 +1,23 @@
 import React from 'react'
 import { Box, IconButton } from '@chakra-ui/react';
-import { BsGithub } from 'react-icons/bs'
+import { BsGithub, BsTwitter } from 'react-icons/bs'
 import { auth } from './../../Configs/firebaseConfigs';
-import { GithubAuthProvider, signInWithPopup, } from 'firebase/auth';
+import { signInWithPopup, TwitterAuthProvider, } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
 
-function GithubLogin() {
+function TwitterLogin() {
     const navigate = useNavigate();
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
-    const provider = new GithubAuthProvider(auth);
+    const provider = new TwitterAuthProvider(auth);
 
-    function signOut() {
-    }
 
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
-        signInWithPopup(auth, new GithubAuthProvider(auth))
+        signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GithubAuthProvider.credentialFromResult(result);
+                const credential = TwitterAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 // console.log(token)
                 // The signed-in user info.
@@ -43,7 +41,7 @@ function GithubLogin() {
                 // The email of the user's account used.
                 const email = error.customData.email;
                 // The AuthCredential type that was used.
-                const credential = GithubAuthProvider.credentialFromError(error);
+                const credential = TwitterAuthProvider.credentialFromError(error);
                 alert('something went wrong');
                 authDispatch({ type: 'LOADED' });
                 // ...
@@ -54,10 +52,9 @@ function GithubLogin() {
 
     return (
         <Box >
-            <IconButton onClick={handleSubmit} variant='outline' size='lg' icon={<BsGithub color='#242121' size='28px' />} />
-            <IconButton onClick={signOut} variant='outline' size='lg' icon={<BsGithub color='#242121' size='28px' />} />
+            <IconButton onClick={handleSubmit} variant='outline' size='lg' icon={<BsTwitter color='#242121' size='28px' />} />
         </Box>
     )
 }
 
-export default GithubLogin
+export default TwitterLogin
