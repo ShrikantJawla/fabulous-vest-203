@@ -62,6 +62,7 @@ function PhoneLogin() {
             }).catch((error) => {
                 // Error; SMS not sent
                 alert('Something went wrong!');
+                authDispatch({ type: 'LOADED' });
                 setTakeOtp(false);
                 console.log(error);
             });

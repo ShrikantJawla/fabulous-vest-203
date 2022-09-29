@@ -1,10 +1,11 @@
 import React from 'react'
-import { Box, Button, FormControl, FormErrorMessage, FormHelperText, Input, InputGroup, InputLeftElement, InputLeftAddon, Text } from '@chakra-ui/react';
+import { Box, Button, FormControl, FormErrorMessage, FormHelperText, Input, InputGroup, InputLeftElement, InputLeftAddon, Text, IconButton } from '@chakra-ui/react';
 import { auth } from '../Configs/firebaseConfigs';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../Contexts/authContext/authContext';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+
 
 
 const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'

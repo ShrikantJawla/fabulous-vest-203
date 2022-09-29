@@ -38,7 +38,7 @@ function Navbar() {
                 <SideNav1 />
                 <Link to='/'><Image display={{ base: "none", lg: 'block' }} src='/images/Zoom-car-logo edited.png' w='170px' /></Link>
                 <Spacer />
-                <HStack spacing={20}>
+                <HStack spacing={{base:'none',lg:20}}>
                     <Box _hover={{ cursor: 'pointer' }} display={{ lg: 'none' }} py='2' px='4' fontSize='19px' fontWeight='bold' rounded='full' color='white' bg='black'>Host</Box>
                     <Box _hover={{ cursor: 'pointer' }} display={{ base: "none", lg: 'flex' }} py='2' px='4' fontSize='19px' fontWeight='500' rounded='full' bg='white'>Become a Host</Box>
                     <Box _hover={{ cursor: 'pointer' }} display={{ base: "none", lg: 'flex' }} color='white' fontWeight='bold' fontSize='19px'>ZMS</Box>

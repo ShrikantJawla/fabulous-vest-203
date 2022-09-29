@@ -6,6 +6,7 @@ import {
 import { auth } from '../../Configs/firebaseConfigs';
 import PhoneLogin from './PhoneLogin';
 import SignUpAndLoginPage from './SignUpAndLoginPage';
+import LoginViaSocialMedias from './LoginViaSocialMedias';
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'
 function LoginPage() {
@@ -17,12 +18,13 @@ function LoginPage() {
             backgroundSize='cover'
             backgroundPosition='center'
         >
-            <VStack w='50%' bg='#FFFFFF' p='5' shadow={shadow} rounded='15px'>
+            <VStack w={{base:'99%',sm:'80%',md:'75%',lg:'50%'}} bg='#FFFFFF' p='5' shadow={shadow} rounded='15px'>
                 <Text fontSize='19px'>Enter details to login/sign-up</Text>
-                <Tabs isFitted variant='enclosed' w='70%' fontWeight='bold'>
-                    <TabList mb='1em' color='black' rounded='10px'>
-                        <Tab>Phone Login</Tab>
-                        <Tab>Login with email</Tab>
+                <Tabs isFitted variant='enclosed' w={{base:'90%',md:'70%'}} fontWeight='bold'>
+                    <TabList mb='1em' color='black' rounded='10px' >
+                        <Tab fontSize='14px'>Phone Login</Tab>
+                        <Tab fontSize='14px'>Login via email</Tab>
+                        <Tab fontSize='14px'>Login via SocialMedia</Tab>
                     </TabList>
                     <TabPanels>
                         <TabPanel>
@@ -30,6 +32,9 @@ function LoginPage() {
                         </TabPanel>
                         <TabPanel>
                             <SignUpAndLoginPage />
+                        </TabPanel>
+                        <TabPanel>
+                            <LoginViaSocialMedias />
                         </TabPanel>
                     </TabPanels>
                 </Tabs>
