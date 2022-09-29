@@ -10,7 +10,7 @@ function LoginViaSocialMedias() {
         <Box display='flex' w='full' justifyContent='center' gap='5'>
             <GoogleLogIn />
             <FacebookLogin />
-            <TwitterLogin/>
+            {/* <TwitterLogin/> */}
         </Box>
     )
 }
