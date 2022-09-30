@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Button, FormControl, FormErrorMessage, FormHelperText, Input, InputGroup, InputLeftElement, InputLeftAddon, Text, IconButton } from '@chakra-ui/react';
-import { auth } from '../Configs/firebaseConfigs';
+import { auth, setItemWithId } from '../Configs/firebaseConfigs';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../Contexts/authContext/authContext';
 import styled from 'styled-components'
@@ -17,14 +17,21 @@ const initialState = {
 function SignUp() {
     const [user, setUser] = React.useState(initialState);
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
+
+    async function setUserWithId(id, data) {
+        setItemWithId(id, data);
+
+    }
+
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
         createUserWithEmailAndPassword(auth, user.email, user.password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
+                const SignedUpUser = userCredential.user;
+                setUserWithId(SignedUpUser.email, { email: SignedUpUser.email, name: user.name });
                 // console.log(user.accessToken);
-                if (user.accessToken) handleFormsToggle(true);
+                if (SignedUpUser.accessToken) handleFormsToggle(true);
                 authDispatch({ type: 'LOADED' });
                 // ...
             })
