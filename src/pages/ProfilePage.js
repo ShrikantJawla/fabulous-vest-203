@@ -5,6 +5,7 @@ import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc 
 import { Link } from 'react-router-dom';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
+import Navbar from './../components/Navbar';
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 let initialValue = {};
 function ProfilePage() {
@@ -38,6 +39,7 @@ function ProfilePage() {
 
     return (
         <Box mt='100px' w='full'>
+            <Navbar />
             <Grid templateColumns={{ base: '1fr', lg: '26% 68%' }} gap='3' justifyContent='center'>
                 <GridItem py='8' shadow={shadow} px='4'>
                     <VStack mb='2'>
@@ -132,7 +134,13 @@ function ProfilePage() {
                             </HStack>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>Gender</Text></Box>
-                                <Box fontSize='14px' textAlign='left' w='200px'><Text>Male</Text></Box>
+                                {(allUsers[0]?.gender) ?
+                                    <Box fontSize='14px' textAlign='left' w='200px'><Text>{allUsers[0]?.gender}</Text></Box> :
+                                    <Select onChange={(e) => { setCurrentUser({ ...currentUser, gender: e.target.value }) }} value={currentUser?.gender} placeholder='Select option'>
+                                        <option value='male'>Male</option>
+                                        <option value='female'>Female</option>
+                                    </Select>
+                                }
                             </HStack>
                         </HStack>
                     </VStack>

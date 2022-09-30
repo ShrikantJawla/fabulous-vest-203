@@ -23,7 +23,6 @@ function SideNav1() {
     const firstField = React.useRef()
     const { authState, authDispatch } = React.useContext(AuthContext);
     const [currentUserId, setCurrentUserId] = React.useState('');
-    const [currentUser, setCurrentUser] = React.useState({});
 
     React.useEffect(() => {
         getDocs(collection(db, 'loginedUser'))
@@ -32,7 +31,6 @@ function SideNav1() {
                 res.docs.forEach(doc => {
                     d.push({ ...doc.data(), id: doc.id })
                 })
-                setCurrentUser(d[0]);
                 setCurrentUserId(d[0].id);
             }).then(err => {
                 console.log(err);
@@ -67,9 +65,9 @@ function SideNav1() {
 
     function handleLogout() {
         authDispatch({ type: 'LOGOUT' });
-        onClose();
         //deleting the current user from firestore
         deleteDoc(doc(db, 'loginedUser', currentUserId));
+        onClose();
     }
 
 

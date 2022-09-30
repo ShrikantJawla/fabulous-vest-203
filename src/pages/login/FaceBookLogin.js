@@ -5,11 +5,29 @@ import { auth } from './../../Configs/firebaseConfigs';
 import { FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
+import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { db } from '../../Configs/firebaseConfigs';
 
 function FacebookLogin() {
+    const [allUsers, setAllUsers] = React.useState([]);
     const navigate = useNavigate();
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
     const provider = new FacebookAuthProvider(auth);
+
+    React.useEffect(() => {
+        getDocs(collection(db, 'users'))
+            .then(res => {
+                let d = [];
+                res.docs.forEach(doc => {
+                    d.push({ ...doc.data(), id: doc.id })
+                })
+                setAllUsers(d);
+            }).then(err => {
+                console.log(err);
+            })
+    }, [])
+
+
 
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
@@ -28,8 +46,12 @@ function FacebookLogin() {
                     email: user.email,
                     mobile: user.phoneNumber,
                     profilePhoto: user.photoURL,
+                    city: '',
+                    gender:''
                 }
+                setDoc(doc(db, 'loginedUser', updateData.email), updateData);
                 authDispatch({ type: 'LOGIN', payload: updateData });
+                setDoc(doc(db, 'users', updateData.email), updateData);
                 navigate('/');
                 // ...
             }).catch((error) => {
