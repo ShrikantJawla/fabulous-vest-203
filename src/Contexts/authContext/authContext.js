@@ -5,7 +5,7 @@ import { db } from '../../Configs/firebaseConfigs';
 
 export const AuthContext = React.createContext();
 const initialValue = {
-    isAuth: false,
+    isAuth: true,
     loading: false,
     userDetails: {
         mobile: '',
