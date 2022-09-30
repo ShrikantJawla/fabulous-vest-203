@@ -69,7 +69,7 @@ function SignIn() {
                 </InputGroup>
                 <FormErrorMessage>Please enter your name</FormErrorMessage>
             </FormControl>
-            <Button isLoading={authState.loading} onClick={handleSubmit} variant='outline' colorScheme={'facebook'}>Sign Up</Button>
+            <Button isLoading={authState.loading} onClick={handleSubmit} variant='outline' colorScheme={'facebook'}>Sign In</Button>
             <Box textAlign='right'><Text color='grey' fontWeight='normal' fontSize='14px'>Navigate to <CustomSpan onClick={() => { handleFormsToggle(false) }}>Sign Up</CustomSpan></Text></Box>
         </Box>
     )
