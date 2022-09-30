@@ -17,7 +17,7 @@ function Navbar() {
         else if (authState.isAuth) {
             if (!authState.userDetails.name) {
                 let num;
-                if (authState.userDetails.mobile.length > 10) num = authState.userDetails.mobile.slice(3);
+                if (authState.userDetails.mobile?.length > 10) num = authState.userDetails.mobile.slice(3);
                 else num = authState.userDetails.mobile;
                 profile = <Box _hover={{ cursor: 'pointer' }} display={{ base: "none", lg: 'flex' }} alignItems='center' gap='2' color='white' fontWeight='bold' fontSize='19px'>
                     <Link to='/profile'><Text>{num}</Text></Link>
