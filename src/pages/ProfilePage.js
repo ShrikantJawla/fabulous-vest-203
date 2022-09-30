@@ -1,41 +1,44 @@
 import React from 'react'
-import { Box, FormControl, Input, VStack, Button, useRadio, Grid, GridItem, Avatar, Text, Divider, HStack, Center, Select } from '@chakra-ui/react';
+import { Box, FormControl, Input, VStack, Button, Grid, GridItem, Avatar, Text, Divider, HStack, Select } from '@chakra-ui/react';
 import { db } from '../Configs/firebaseConfigs'
-import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { Link } from 'react-router-dom';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
 import Navbar from './../components/Navbar';
+import { addItems, updateItem, getAllItems, getSingleItem } from '../Configs/firebaseConfigs'
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 let initialValue = {};
+
+let user;
+let id;
 function ProfilePage() {
-
-
-    const [allUsers, setAllUsers] = React.useState([]);
+    // const { authState } = React.useContext(AuthContext);
     const [currentUser, setCurrentUser] = React.useState(initialValue);
+    const [profileUser, setProfileUser] = React.useState({});
     React.useEffect(() => {
-        getDocs(collection(db, 'loginedUser'))
-            .then(res => {
-                let d = [];
-                res.docs.forEach(doc => {
-                    d.push({ ...doc.data(), id: doc.id })
-                })
-                setAllUsers(d);
-                initialValue = {
-                    ...d[0]
-                }
-            }).then(err => {
-                console.log(err);
-            })
+        user = JSON.parse(localStorage.getItem('loginedUser')) || null;
+        id = user?.email;
+        if (user) setCurrentUser({ ...user });
+        if (id) getSingleUser();
     }, []);
-    // console.log(initialValue);
-    console.log(currentUser)
 
-    function handleUpdate() {
-        updateDoc(doc(db, 'loginedUser', allUsers[0].id), currentUser);
-        updateDoc(doc(db, 'users', allUsers[0].id), currentUser);
+    async function getSingleUser() {
+        try {
+            const res = await getSingleItem(id);
+            setProfileUser(res.data());
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
+    async function updateUserData(id, data) {
+        updateItem(id, data);
+    }
+
+    function handleUpdate() {
+        updateUserData(id, currentUser);
+        localStorage.setItem('loginedUser', JSON.stringify(currentUser));
+    }
 
     return (
         <Box mt='100px' w='full'>
@@ -43,11 +46,11 @@ function ProfilePage() {
             <Grid templateColumns={{ base: '1fr', lg: '26% 68%' }} gap='3' justifyContent='center'>
                 <GridItem py='8' shadow={shadow} px='4'>
                     <VStack mb='2'>
-                        <Avatar size='xl' src={allUsers[0]?.profilePhoto} />
+                        <Avatar size='xl' src={profileUser?.profilePhoto} />
                         <VStack spacing='-1px'>
-                            <Text fontWeight='bold'>{allUsers[0]?.name}</Text>
-                            <Text fontSize='14px'>{allUsers[0]?.mobile}</Text>
-                            <Text fontSize='14px'>{allUsers[0]?.email}</Text>
+                            <Text fontWeight='bold'>{profileUser?.name}</Text>
+                            <Text fontSize='14px'>{profileUser?.mobile}</Text>
+                            <Text fontSize='14px'>{profileUser?.email}</Text>
                         </VStack>
                     </VStack>
                     <Divider bg='black' />
@@ -111,14 +114,14 @@ function ProfilePage() {
                         </Box>
                         <HStack style={{ marginBottom: '8px' }}>
                             <Box fontSize='14px' w='100px' textAlign='left'><Text>Email</Text></Box>
-                            <Box fontSize='14px' textAlign='left' w='200px'><Text>anmolchaudhary@gmail.com</Text></Box>
+                            <Box fontSize='14px' textAlign='left' w='200px'><Text>{profileUser?.email}</Text></Box>
                         </HStack>
                         <HStack >
                             <Box fontSize='14px' w='100px' textAlign='left'><Text>Mobile*</Text></Box>
                             <Box fontSize='14px' w='200px'>
-                                {allUsers[0]?.mobile ? <Box fontSize='14px' w='200px' textAlign='left'><Text>{allUsers[0]?.mobile}</Text></Box> : <FormControl border='1px solid grey'>
+                                <FormControl border='1px solid grey'>
                                     <Input onChange={(e) => { setCurrentUser({ ...currentUser, mobile: e.target.value }) }} value={currentUser?.mobile} size='md' />
-                                </FormControl>}
+                                </FormControl>
                             </Box>
                         </HStack>
                     </VStack>
@@ -134,13 +137,10 @@ function ProfilePage() {
                             </HStack>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>Gender</Text></Box>
-                                {(allUsers[0]?.gender) ?
-                                    <Box fontSize='14px' textAlign='left' w='200px'><Text>{allUsers[0]?.gender}</Text></Box> :
-                                    <Select onChange={(e) => { setCurrentUser({ ...currentUser, gender: e.target.value }) }} value={currentUser?.gender} placeholder='Select option'>
-                                        <option value='male'>Male</option>
-                                        <option value='female'>Female</option>
-                                    </Select>
-                                }
+                                <Select onChange={(e) => { setCurrentUser({ ...currentUser, gender: e.target.value }) }} value={currentUser?.gender} placeholder='Select option'>
+                                    <option value='male'>Male</option>
+                                    <option value='female'>Female</option>
+                                </Select>
                             </HStack>
                         </HStack>
                     </VStack>
@@ -154,9 +154,9 @@ function ProfilePage() {
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>City</Text></Box>
                                 <Box fontSize='14px' textAlign='left' w='200px' >
-                                    {allUsers[0]?.city ? <Box fontSize='14px' w='200px' textAlign='left'><Text>{allUsers[0]?.city}</Text></Box> : <FormControl border='1px solid grey' rounded='5px'>
-                                        <Input onChange={(e) => { setCurrentUser({ ...currentUser, city: e.target.value }) }} value={currentUser?.address} size='md' />
-                                    </FormControl>}
+                                    <FormControl border='1px solid grey' rounded='5px'>
+                                        <Input onChange={(e) => { setCurrentUser({ ...currentUser, city: e.target.value }) }} value={currentUser?.city} size='md' />
+                                    </FormControl>
                                 </Box>
                             </HStack>
                         </VStack>

@@ -13,8 +13,6 @@ import { RiLogoutCircleRLine } from 'react-icons/ri';
 import { IoHome } from 'react-icons/io5';
 import { AuthContext } from '../Contexts/authContext/authContext';
 import { Link } from 'react-router-dom';
-import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { db } from '../Configs/firebaseConfigs'; 
 
 const hoverStyle = { cursor: 'pointer', backgroundColor: '#E2E8F0' }
 
@@ -22,20 +20,6 @@ function SideNav1() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const firstField = React.useRef()
     const { authState, authDispatch } = React.useContext(AuthContext);
-    const [currentUserId, setCurrentUserId] = React.useState('');
-
-    React.useEffect(() => {
-        getDocs(collection(db, 'loginedUser'))
-            .then(res => {
-                let d = [];
-                res.docs.forEach(doc => {
-                    d.push({ ...doc.data(), id: doc.id })
-                })
-                setCurrentUserId(d[0].id);
-            }).then(err => {
-                console.log(err);
-            })
-    }, []);
 
     function toggleLinkOfProfile() {
         if (authState.isAuth) return '/profile';
@@ -66,7 +50,7 @@ function SideNav1() {
     function handleLogout() {
         authDispatch({ type: 'LOGOUT' });
         //deleting the current user from firestore
-        deleteDoc(doc(db, 'loginedUser', currentUserId));
+        localStorage.setItem('loginedUser', null);
         onClose();
     }
 

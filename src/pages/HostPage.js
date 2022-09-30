@@ -1,7 +1,6 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Heading, HStack, IconButton, Image, Stack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import Navbar from '../components/Navbar'
-import { Carousel } from 'react-responsive-carousel';
 import { HiOutlineShare } from 'react-icons/hi'
 const buttonColor = '#10A310'
 

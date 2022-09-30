@@ -5,8 +5,9 @@ import { auth } from './../../Configs/firebaseConfigs';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
-import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { collection, getDocs, doc, setDoc } from "firebase/firestore";
 import { db } from '../../Configs/firebaseConfigs';
+import { getSingleItem } from './../../Configs/firebaseConfigs';
 
 
 
@@ -14,24 +15,19 @@ import { db } from '../../Configs/firebaseConfigs';
 
 function GoogleLogIn() {
     const navigate = useNavigate();
-    const [allUsers, setAllUsers] = React.useState([]);
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
     const provider = new GoogleAuthProvider(auth);
 
-    React.useEffect(() => {
-        getDocs(collection(db, 'users'))
-            .then(res => {
-                let d = [];
-                res.docs.forEach(doc => {
-                    d.push({ ...doc.data(), id: doc.id })
-                })
-                setAllUsers(d);
-            }).then(err => {
-                console.log(err);
-            })
-    }, [])
-
-
+    async function checkSingleUser(id) {
+        let res = await getSingleItem(id);
+        if (res.data() !== undefined) return true;
+        return false;
+    }
+    async function getSingleUser(id) {
+        let res = await getSingleItem(id);
+        localStorage.setItem('loginedUser', JSON.stringify(res.data()));
+        authDispatch({ type: 'LOGIN', payload: res.data() });
+    }
 
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
@@ -44,7 +40,7 @@ function GoogleLogIn() {
                 // The signed-in user info.
                 authDispatch({ type: 'LOADED' });
                 const user = result.user;
-                console.log(result)
+                // console.log(result)
                 let updateData = {
                     name: user.displayName,
                     email: user.email,
@@ -53,20 +49,14 @@ function GoogleLogIn() {
                     city: '',
                     gender: ''
                 }
-
-                setDoc(doc(db, 'loginedUser', updateData.email), updateData);
                 //reducer login action
-                authDispatch({ type: 'LOGIN', payload: updateData });
-
-                //Receiving the data from firebase and checking the validation
-                // let flag = true;
-                // allUsers.forEach(ele => {
-                //     if (ele.email === updateData.email) {
-                //         flag = false;
-                //     }
-                //     if (flag) addDoc(collection(db, 'users'), updateData);
-                // })
-                setDoc(doc(db, 'users', updateData.email), updateData);
+                if (checkSingleUser(updateData.email)) {
+                    getSingleUser(updateData.email);
+                } else {
+                    localStorage.setItem('loginedUser', JSON.stringify(updateData));
+                    authDispatch({ type: 'LOGIN', payload: updateData });
+                    setDoc(doc(db, 'users', updateData.email), updateData);
+                }
                 navigate('/');
                 // ...
             }).catch((error) => {

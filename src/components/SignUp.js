@@ -3,7 +3,6 @@ import { Box, Button, FormControl, FormErrorMessage, FormHelperText, Input, Inpu
 import { auth } from '../Configs/firebaseConfigs';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { AuthContext } from '../Contexts/authContext/authContext';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
 
@@ -17,7 +16,6 @@ const initialState = {
 }
 function SignUp() {
     const [user, setUser] = React.useState(initialState);
-    const navigate = useNavigate();
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
     function handleSubmit() {
         authDispatch({ type: 'LOADING' });
