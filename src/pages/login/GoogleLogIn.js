@@ -50,7 +50,8 @@ function GoogleLogIn() {
                     email: user.email,
                     mobile: user.phoneNumber,
                     profilePhoto: user.photoURL,
-                    city:''
+                    city: '',
+                    gender: ''
                 }
 
                 setDoc(doc(db, 'loginedUser', updateData.email), updateData);

@@ -19,7 +19,7 @@ const initialValue = {
 
 export default function AuthContextProvider({ children }) {
 
-    const [currentUser, setCurrentUser] = React.useState({});
+    // const [currentUser, setCurrentUser] = React.useState({});
 
     const [toggleAuthForms, setToggleAuthForms] = React.useState(true);
 
@@ -29,19 +29,19 @@ export default function AuthContextProvider({ children }) {
 
     const [authState, authDispatch] = React.useReducer(reducer, initialValue);
 
-    React.useEffect(() => {
-        getDocs(collection(db, 'loginedUser'))
-            .then(res => {
-                let d = [];
-                res.docs.forEach(doc => {
-                    d.push({ ...doc.data(), id: doc.id })
-                })
-                setCurrentUser(d[0]);
-                if (d[0].name) authDispatch({ type: 'LOGIN', payload: d[0] });
-            }).then(err => {
-                console.log(err);
-            })
-    }, []);
+    // React.useEffect(() => {
+    //     getDocs(collection(db, 'loginedUser'))
+    //         .then(res => {
+    //             let d = [];
+    //             res.docs.forEach(doc => {
+    //                 d.push({ ...doc.data(), id: doc.id })
+    //             })
+    //             setCurrentUser(d[0]);
+    //             // if (d[0].name) authDispatch({ type: 'LOGIN', payload: d[0] });
+    //         }).then(err => {
+    //             console.log(err);
+    //         })
+    // }, []);
 
     const value = {
         authState,

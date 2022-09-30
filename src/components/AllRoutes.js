@@ -4,15 +4,18 @@ import HomePage from '../pages/HomePage'
 import NoPageFound from './../pages/NoPageFound';
 import LoginPage from './../pages/login/LoginPage';
 import ProfilePage from './../pages/ProfilePage';
+import PrivateRoute from './PrivateRoute';
+import HostPage from '../pages/HostPage';
 
 function AllRoutes() {
     return (
         <Routes>
             <Route path='/' element={<HomePage />} />
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/profile' element={<ProfilePage />} />
-            <Route path='*' element={ <NoPageFound/>} />
-        </Routes>
+            <Route path='/profile' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
+            <Route path='/host' element={<PrivateRoute><HostPage /></PrivateRoute>} />
+            <Route path='*' element={<NoPageFound />} />
+        </Routes >
     )
 }
 
