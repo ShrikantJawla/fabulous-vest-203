@@ -13,7 +13,7 @@ const initialState = {
 }
 function SignIn() {
     const [user, setUser] = React.useState(initialState);
-    const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
+    const { authState, authDispatch, handleFormsToggle } = React.useContext(AuthContext);
     const navigate = useNavigate();
 
     function handleSubmit() {
@@ -27,6 +27,7 @@ function SignIn() {
                 let updateData = {
                     email:user.email,
                 }
+                localStorage.setItem('loginedUser', JSON.stringify(updateData));
                 authDispatch({ type: 'LOGIN', payload: updateData });
                 authDispatch({ type: 'LOADED' });
                 navigate('/');
@@ -38,7 +39,7 @@ function SignIn() {
                 authDispatch({ type: 'LOADED' });
                 alert('something went wrong!')
             });
-        // setUser(initialState);
+        setUser(initialState);
     }
 
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import { reducer } from './authReducer';
-import { getDocs, collection } from 'firebase/firestore';
 import { db } from '../../Configs/firebaseConfigs';
 
+let user;
+
 export const AuthContext = React.createContext();
-const initialValue = {
-    isAuth: true,
+let initialValue = {
+    isAuth: false,
     loading: false,
     userDetails: {
         mobile: '',
@@ -19,7 +20,8 @@ const initialValue = {
 
 export default function AuthContextProvider({ children }) {
 
-    // const [currentUser, setCurrentUser] = React.useState({});
+    user = JSON.parse(localStorage.getItem('loginedUser')) || null;
+    if (user) initialValue = { ...initialValue, isAuth: true, userDetails: { ...user } };;
 
     const [toggleAuthForms, setToggleAuthForms] = React.useState(true);
 

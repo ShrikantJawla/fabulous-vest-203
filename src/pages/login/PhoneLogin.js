@@ -8,6 +8,8 @@ import {
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
+import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { db } from '../../Configs/firebaseConfigs';
 
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'
@@ -15,7 +17,7 @@ const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1p
 // let num = '+14564564564'
 
 function PhoneLogin() {
-
+    const [allUsers, setAllUsers] = React.useState([]);
     const [isValid, setIsValid] = React.useState(false);
     const [mobNum, setMobNum] = React.useState('');
     const [otp, setOtp] = React.useState(0)
@@ -23,6 +25,20 @@ function PhoneLogin() {
     let navigate = useNavigate();
     const { authState, authDispatch } = React.useContext(AuthContext);
     // console.log(authState);
+
+    React.useEffect(() => {
+        getDocs(collection(db, 'users'))
+            .then(res => {
+                let d = [];
+                res.docs.forEach(doc => {
+                    d.push({ ...doc.data(), id: doc.id })
+                })
+                setAllUsers(d);
+            }).then(err => {
+                console.log(err);
+            })
+    }, [])
+
 
     function handleInputMobNum(e) {
         setMobNum(e.target.value);
@@ -88,6 +104,7 @@ function PhoneLogin() {
                 }
                 authDispatch({ type: 'LOADED' });
                 authDispatch({ type: 'LOGIN', payload: userDetails });
+                // setDoc(doc(db, 'loginedUser', userDetails.email), userDetails);
                 navigate('/');
                 // ...
             }).catch((error) => {

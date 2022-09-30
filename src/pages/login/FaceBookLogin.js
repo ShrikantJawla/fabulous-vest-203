@@ -1,32 +1,27 @@
 import React from 'react'
 import { Box, IconButton } from '@chakra-ui/react';
 import { ImFacebook2 } from 'react-icons/im'
-import { auth } from './../../Configs/firebaseConfigs';
+import { db, auth, getSingleItem } from './../../Configs/firebaseConfigs';
 import { FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
-import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { db } from '../../Configs/firebaseConfigs';
+import { doc, setDoc } from "firebase/firestore";
 
 function FacebookLogin() {
-    const [allUsers, setAllUsers] = React.useState([]);
     const navigate = useNavigate();
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
     const provider = new FacebookAuthProvider(auth);
 
-    React.useEffect(() => {
-        getDocs(collection(db, 'users'))
-            .then(res => {
-                let d = [];
-                res.docs.forEach(doc => {
-                    d.push({ ...doc.data(), id: doc.id })
-                })
-                setAllUsers(d);
-            }).then(err => {
-                console.log(err);
-            })
-    }, [])
-
+    async function checkSingleUser(id) {
+        let res = await getSingleItem(id);
+        if (res.data() !== undefined) return true;
+        return false;
+    }
+    async function getSingleUser(id) {
+        let res = await getSingleItem(id);
+        localStorage.setItem('loginedUser', JSON.stringify(res.data()));
+        authDispatch({ type: 'LOGIN', payload: res.data() });
+    }
 
 
     function handleSubmit() {
@@ -47,11 +42,18 @@ function FacebookLogin() {
                     mobile: user.phoneNumber,
                     profilePhoto: user.photoURL,
                     city: '',
-                    gender:''
+                    gender: ''
                 }
-                setDoc(doc(db, 'loginedUser', updateData.email), updateData);
-                authDispatch({ type: 'LOGIN', payload: updateData });
-                setDoc(doc(db, 'users', updateData.email), updateData);
+                if (checkSingleUser(updateData.email)) {
+                    getSingleUser(updateData.email);
+                } else {
+                    localStorage.setItem('loginedUser', JSON.stringify(updateData));
+                    authDispatch({ type: 'LOGIN', payload: updateData });
+                    setDoc(doc(db, 'users', updateData.email), updateData);
+                }
+                // localStorage.setItem('loginedUser', JSON.stringify(updateData));
+                // authDispatch({ type: 'LOGIN', payload: updateData });
+                // setDoc(doc(db, 'users', updateData.email), updateData);
                 navigate('/');
                 // ...
             }).catch((error) => {
