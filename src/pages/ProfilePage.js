@@ -5,19 +5,19 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
 import Navbar from './../components/Navbar';
 import { addItems, updateItem, getAllItems, getSingleItem } from '../Configs/firebaseConfigs'
+import { AuthContext } from '../Contexts/authContext/authContext';
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 let initialValue = {};
 
 let user;
 let id;
 function ProfilePage() {
-    // const { authState } = React.useContext(AuthContext);
+    const { authState } = React.useContext(AuthContext);
     const [currentUser, setCurrentUser] = React.useState(initialValue);
     const [profileUser, setProfileUser] = React.useState({});
     React.useEffect(() => {
         user = JSON.parse(localStorage.getItem('loginedUser')) || null;
         id = user?.email;
-        if (user) setCurrentUser({ ...user });
         if (id) getSingleUser();
     }, []);
 
@@ -25,6 +25,8 @@ function ProfilePage() {
         try {
             const res = await getSingleItem(id);
             setProfileUser(res.data());
+            setCurrentUser({ ...res.data() });
+            localStorage.setItem('loginedUser', JSON.stringify(res.data()));
         }
         catch (err) {
             console.log(err)
@@ -37,8 +39,9 @@ function ProfilePage() {
 
     function handleUpdate() {
         updateUserData(id, currentUser);
-        localStorage.setItem('loginedUser', JSON.stringify(currentUser));
     }
+    console.log(user)
+    // console.log(currentUser)
 
     return (
         <Box mt='100px' w='full'>
@@ -133,7 +136,7 @@ function ProfilePage() {
                         <HStack justify='space-between' w='full'>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>Name*</Text></Box>
-                                <Box fontSize='14px' textAlign='left' w='200px'><Text>Shrikant</Text></Box>
+                                <Box fontSize='14px' textAlign='left' w='200px'><Text>{profileUser?.name}</Text></Box>
                             </HStack>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>Gender</Text></Box>
