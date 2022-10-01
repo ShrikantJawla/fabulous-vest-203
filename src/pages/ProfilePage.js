@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, FormControl, Input, VStack, Button, Grid, GridItem, Avatar, Text, Divider, HStack, Select } from '@chakra-ui/react';
+import { Box, FormControl, Input, VStack, Button, Grid, GridItem, Avatar, Text, Divider, HStack, Select, Stack } from '@chakra-ui/react';
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
 import Navbar from './../components/Navbar';
@@ -55,7 +55,7 @@ function ProfilePage() {
         <Box mt='100px' w='full'>
             <Navbar />
             <AlertMessage showMessage={showMessage} messageCloseToggle={messageCloseToggle} />
-            <Grid templateColumns={{ base: '1fr', lg: '26% 68%' }} gap='3' justifyContent='center'>
+            <Grid templateColumns={{ base: '100%', lg: '26% 68%' }} gap='3' justifyContent='center'>
                 <GridItem py='8' shadow={shadow} px='4'>
                     <VStack mb='2'>
                         <Avatar size='xl' src={profileUser?.profilePhoto} />
@@ -115,7 +115,7 @@ function ProfilePage() {
                 </GridItem>
 
 
-                <GridItem shadow={shadow} p='6'>
+                <GridItem shadow={shadow} p={{ base:'0',md:'6'}} >
                     <Box pb='5' borderBottom='1px solid grey'>
                         <Text fontSize='22px' align='center' fontWeight='bold'>MY ACCOUNT</Text>
                     </Box>
@@ -130,19 +130,19 @@ function ProfilePage() {
                         </HStack>
                         <HStack >
                             <Box fontSize='14px' w='100px' textAlign='left'><Text>Mobile*</Text></Box>
-                            <Box fontSize='14px' w='200px'>
+                            <Box fontSize='14px' w={{base:'150px',md:'200px'}}>
                                 <FormControl border='1px solid grey'>
-                                    <Input onChange={(e) => { setCurrentUser({ ...currentUser, mobile: e.target.value }) }} value={currentUser?.mobile} size='md' />
+                                    <Input onChange={(e) => { setCurrentUser({ ...currentUser, mobile: e.target.value }) }} value={currentUser?.mobile} size={{base:'sm',md:'md'}} />
                                 </FormControl>
                             </Box>
                         </HStack>
                     </VStack>
 
-                    <VStack align='flex-start' w='full' px='4' pb='4'>
+                    <VStack align='flex-start' w='full' px={{base:'1',md:'4'}} pb='4'>
                         <Box borderBottom='1px solid grey' w='full'>
                             <Text fontSize='18px' pt='5'>Personal Details</Text>
                         </Box>
-                        <HStack justify='space-between' w='full'>
+                        <Stack direction={{base:'column',md:'row'}} justify='space-between' w='full'>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>Name*</Text></Box>
                                 <Box fontSize='14px' textAlign='left' w='200px'><Text>{profileUser?.name}</Text></Box>
@@ -154,7 +154,7 @@ function ProfilePage() {
                                     <option value='female'>Female</option>
                                 </Select>
                             </HStack>
-                        </HStack>
+                        </Stack>
                     </VStack>
 
                     <VStack align='flex-start' w='full' px='4' pb='4'>
@@ -165,9 +165,9 @@ function ProfilePage() {
                             <Text mb='4' fontSize='15px'>Please share your current city for optimized experience</Text>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>City</Text></Box>
-                                <Box fontSize='14px' textAlign='left' w='200px' >
+                                <Box fontSize='14px' textAlign='left' w={{ base: '150px', md: '200px' }} >
                                     <FormControl border='1px solid grey' rounded='5px'>
-                                        <Input onChange={(e) => { setCurrentUser({ ...currentUser, city: e.target.value }) }} value={currentUser?.city} size='md' />
+                                        <Input onChange={(e) => { setCurrentUser({ ...currentUser, city: e.target.value }) }} value={currentUser?.city} size={{ base: 'sm', md: 'md' }} />
                                     </FormControl>
                                 </Box>
                             </HStack>
