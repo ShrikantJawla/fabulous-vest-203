@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 
 function reducer(state, action) {
     switch (action.type) {
@@ -33,6 +33,27 @@ function reducer(state, action) {
             return {
                 ...state,
                 loading: false
+            }
+        case 'UPDATESTATE':
+            return {
+                ...state,
+                userDetails: {
+                    ...state.userDetails,
+                    ...action.payload
+                }
+            }
+        case 'LOCATIONUPDATER':
+            return {
+                ...state,
+                userDetails: {
+                    ...state.userDetails,
+                    ...action.payload
+                }
+            }
+        case 'HANDLELOCATIONUPDATER':
+            return {
+                ...state,
+                locationUpdater: action.payload
             }
         default:
             return state;

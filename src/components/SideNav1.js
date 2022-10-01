@@ -79,7 +79,7 @@ function SideNav1() {
                                 <Text>Change City</Text>
                             </HStack>
                             <Spacer />
-                            <Text fontWeight='bold' color='green' fontSize='16px'>Delhi NCR</Text>
+                            <Text fontWeight='bold' color='green' fontSize='16px'>{ authState.userDetails.city}</Text>
                         </HStack>
                         <Box display='flex' gap='3' p='3' mb='1'>
                             <AiFillCar size='20px' />

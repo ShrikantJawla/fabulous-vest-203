@@ -37,12 +37,11 @@ function FacebookLogin() {
                 const user = result.user;
                 console.log(result)
                 let updateData = {
+                    ...authState.userDetails,
                     name: user.displayName,
                     email: user.email,
                     mobile: user.phoneNumber,
                     profilePhoto: user.photoURL,
-                    city: '',
-                    gender: ''
                 }
                 if (checkSingleUser(updateData.email)) {
                     getSingleUser(updateData.email);
