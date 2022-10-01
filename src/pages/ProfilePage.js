@@ -115,7 +115,7 @@ function ProfilePage() {
                 </GridItem>
 
 
-                <GridItem shadow={shadow} p={{ base:'0',md:'6'}} >
+                <GridItem shadow={shadow} p={{ base: '0', md: '6' }} >
                     <Box pb='5' borderBottom='1px solid grey'>
                         <Text fontSize='22px' align='center' fontWeight='bold'>MY ACCOUNT</Text>
                     </Box>
@@ -130,19 +130,19 @@ function ProfilePage() {
                         </HStack>
                         <HStack >
                             <Box fontSize='14px' w='100px' textAlign='left'><Text>Mobile*</Text></Box>
-                            <Box fontSize='14px' w={{base:'150px',md:'200px'}}>
-                                <FormControl border='1px solid grey'>
-                                    <Input onChange={(e) => { setCurrentUser({ ...currentUser, mobile: e.target.value }) }} value={currentUser?.mobile} size={{base:'sm',md:'md'}} />
+                            <Box fontSize='14px' w={{ base: '150px', md: '200px' }}>
+                                <FormControl >
+                                    <Input outline='1px solid grey' onChange={(e) => { setCurrentUser({ ...currentUser, mobile: e.target.value }) }} value={currentUser?.mobile} size={{ base: 'sm', md: 'md' }} />
                                 </FormControl>
                             </Box>
                         </HStack>
                     </VStack>
 
-                    <VStack align='flex-start' w='full' px={{base:'1',md:'4'}} pb='4'>
+                    <VStack align='flex-start' w='full' px={{ base: '1', md: '4' }} pb='4'>
                         <Box borderBottom='1px solid grey' w='full'>
                             <Text fontSize='18px' pt='5'>Personal Details</Text>
                         </Box>
-                        <Stack direction={{base:'column',md:'row'}} justify='space-between' w='full'>
+                        <Stack direction={{ base: 'column', md: 'row' }} justify='space-between' w='full'>
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>Name*</Text></Box>
                                 <Box fontSize='14px' textAlign='left' w='200px'><Text>{profileUser?.name}</Text></Box>
@@ -166,8 +166,8 @@ function ProfilePage() {
                             <HStack style={{ marginBottom: '8px' }}>
                                 <Box fontSize='14px' w='100px' textAlign='left'><Text>City</Text></Box>
                                 <Box fontSize='14px' textAlign='left' w={{ base: '150px', md: '200px' }} >
-                                    <FormControl border='1px solid grey' rounded='5px'>
-                                        <Input onChange={(e) => { setCurrentUser({ ...currentUser, city: e.target.value }) }} value={currentUser?.city} size={{ base: 'sm', md: 'md' }} />
+                                    <FormControl rounded='5px'>
+                                        <Input outline='1px solid grey' onChange={(e) => { setCurrentUser({ ...currentUser, city: e.target.value }) }} value={currentUser?.city} size={{ base: 'sm', md: 'md' }} />
                                     </FormControl>
                                 </Box>
                             </HStack>

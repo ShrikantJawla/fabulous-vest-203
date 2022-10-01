@@ -26,6 +26,7 @@ export const db = getFirestore(app);
 
 
 const itemCollectionRef = collection(db, 'users');
+
 async function addItems(data) {
     return addDoc(itemCollectionRef, data);
 }

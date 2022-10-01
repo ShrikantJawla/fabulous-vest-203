@@ -6,6 +6,7 @@ import LoginPage from './../pages/login/LoginPage';
 import ProfilePage from './../pages/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 import HostPage from '../pages/HostPage';
+import GoogleMap from './GoogleMap';
 
 function AllRoutes() {
     return (
@@ -14,6 +15,7 @@ function AllRoutes() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/profile' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
             <Route path='/host' element={<PrivateRoute><HostPage /></PrivateRoute>} />
+            <Route path='/locationFinder' element={<GoogleMap />} />
             <Route path='*' element={<NoPageFound />} />
         </Routes >
     )

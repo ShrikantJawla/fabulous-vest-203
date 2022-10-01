@@ -27,8 +27,8 @@ export default function AlertMessage({ showMessage, messageCloseToggle }) {
             <CloseButton
                 alignSelf='center'
                 position='relative'
-                right={{ base: 'auto', lg: -360 }}
-                top={1}
+                right={{ base: 'auto', lg: -1 }}
+                top={0.5}
                 size='lg'
                 onClick={() => { messageCloseToggle(false) }}
             />
