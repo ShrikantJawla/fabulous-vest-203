@@ -1,11 +1,11 @@
 import React from 'react';
 import { reducer } from './authReducer';
-import { db } from '../../Configs/firebaseConfigs';
 
 let user;
 
 export const AuthContext = React.createContext();
 let initialValue = {
+    locationUpdater: true,
     isAuth: false,
     loading: false,
     userDetails: {
@@ -14,6 +14,7 @@ let initialValue = {
         name: '',
         email: '',
         gender: 'Male',
+        country: '',
         city: ''
     }
 }

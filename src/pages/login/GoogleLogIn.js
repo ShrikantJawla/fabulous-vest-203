@@ -42,12 +42,11 @@ function GoogleLogIn() {
                 const user = result.user;
                 // console.log(result)
                 let updateData = {
+                    ...authState.userDetails,
                     name: user.displayName,
                     email: user.email,
                     mobile: user.phoneNumber,
                     profilePhoto: user.photoURL,
-                    city: '',
-                    gender: ''
                 }
                 //reducer login action
                 if (checkSingleUser(updateData.email)) {

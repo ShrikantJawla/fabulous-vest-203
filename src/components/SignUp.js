@@ -29,7 +29,12 @@ function SignUp() {
             .then((userCredential) => {
                 // Signed in 
                 const SignedUpUser = userCredential.user;
-                setUserWithId(SignedUpUser.email, { email: SignedUpUser.email, name: user.name });
+                let updateData = {
+                    ...authState.userDetails,
+                    email: SignedUpUser.email,
+                    name: user.name
+                }
+                setUserWithId(SignedUpUser.email, updateData);
                 // console.log(user.accessToken);
                 if (SignedUpUser.accessToken) handleFormsToggle(true);
                 authDispatch({ type: 'LOADED' });

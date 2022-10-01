@@ -3,21 +3,27 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import TripSelectors from '../components/TripSelectors';
 import { BsArrowRight } from 'react-icons/bs';
 import Navbar from '../components/Navbar';
+import LocationUpdater from './../components/LocationUpdater';
+import { AuthContext } from '../Contexts/authContext/authContext';
 const image1 = 'https://zoomcar-assets.zoomcar.com/images/original/a121667db0d5e435e48884b015120bc180a4ad2f.jpg?1661426287'
 const image2 = new URL('/public/images/artturi-jalli-Su1gc1A63xE-unsplash.jpg', import.meta.url);
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 
 function HomePage() {
+    const { authState, authDispatch } = React.useContext(AuthContext);
     const [image, setImage] = React.useState(image1);
-
+    React.useEffect(() => {
+        if (authState.userDetails.city) authDispatch({ type: 'HANDLELOCATIONUPDATER', payload: false });
+    }, [authState.userDetails.city])
     function handleImage(id) {
         if (id === 0) setImage(image1);
         else setImage(image2);
     }
-
+    console.log(authState.userDetails);
     return (
         <Box w='full' >
             <Navbar />
+            {authState.locationUpdater && <LocationUpdater />}
             <Box w='100%' h='650px'
                 mb='8'
                 backgroundPosition='center' backgroundRepeat='no-repeat'

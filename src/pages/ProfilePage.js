@@ -1,20 +1,26 @@
 import React from 'react'
 import { Box, FormControl, Input, VStack, Button, Grid, GridItem, Avatar, Text, Divider, HStack, Select } from '@chakra-ui/react';
-import { db } from '../Configs/firebaseConfigs'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
 import Navbar from './../components/Navbar';
-import { addItems, updateItem, getAllItems, getSingleItem } from '../Configs/firebaseConfigs'
+import { updateItem, getSingleItem } from '../Configs/firebaseConfigs'
 import { AuthContext } from '../Contexts/authContext/authContext';
+import AlertMessage from '../components/AlertMessage';
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 let initialValue = {};
 
 let user;
 let id;
 function ProfilePage() {
-    const { authState } = React.useContext(AuthContext);
+    const { authState, authDispatch } = React.useContext(AuthContext);
     const [currentUser, setCurrentUser] = React.useState(initialValue);
     const [profileUser, setProfileUser] = React.useState({});
+    const [showMessage, setShowMessage] = React.useState(false);
+
+    function messageCloseToggle(val) {
+        setShowMessage(val);
+    }
+
     React.useEffect(() => {
         user = JSON.parse(localStorage.getItem('loginedUser')) || null;
         id = user?.email;
@@ -35,10 +41,12 @@ function ProfilePage() {
 
     async function updateUserData(id, data) {
         updateItem(id, data);
+        messageCloseToggle(true);
     }
 
     function handleUpdate() {
         updateUserData(id, currentUser);
+        authDispatch({ type: 'UPDATESTATE', payload: currentUser });
     }
     console.log(user)
     // console.log(currentUser)
@@ -46,6 +54,7 @@ function ProfilePage() {
     return (
         <Box mt='100px' w='full'>
             <Navbar />
+            <AlertMessage showMessage={showMessage} messageCloseToggle={messageCloseToggle} />
             <Grid templateColumns={{ base: '1fr', lg: '26% 68%' }} gap='3' justifyContent='center'>
                 <GridItem py='8' shadow={shadow} px='4'>
                     <VStack mb='2'>
