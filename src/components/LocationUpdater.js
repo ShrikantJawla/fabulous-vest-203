@@ -26,7 +26,7 @@ function LocationUpdater() {
     }
 
     return (
-        <VStack zIndex='8989989' bg='white' rounded={5} spacing={5} boxShadow={shadow} position='fixed' top='25%' left='38%' px='7' py='9' w='360px' h='fit-content'>
+        <VStack zIndex='8989989' bg='white' rounded={5} spacing={5} boxShadow={shadow} position='fixed' top={{base:'16%',lg:'25%'}} left={{base:'3%',md:'25%',lg:'38%'}} px='7' py='9' w={{base:'90vw',md:'360px'}} h='fit-content'>
             <FormControl>
                 <FormLabel>Enter your Country</FormLabel>
                 <Input value={location.country} onChange={(e) => { setLocation({ ...location, country: e.target.value }) }} placeholder='Country' boxShadow='md' />
