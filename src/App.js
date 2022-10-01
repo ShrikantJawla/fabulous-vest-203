@@ -1,15 +1,15 @@
-import { Container, Text, Box } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import AllRoutes from './components/AllRoutes';
-import LocationUpdater from './components/LocationUpdater';
+import GoogleMap from './components/GoogleMap';
 
 
 function App() {
   return (
     <Box w='full'>
       <AllRoutes />
-      {/* <LocationUpdater/> */}
     </Box>
   );
 }
 
 export default App;
+

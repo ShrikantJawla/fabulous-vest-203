@@ -1,12 +1,15 @@
 import React from 'react'
-import { Box, Tabs, TabList, TabPanels, Tab, TabPanel, VStack, Text, Input, FormControl, InputLeftElement, InputGroup, Button } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, VStack, Text, Input, InputLeftElement, InputGroup, Button } from '@chakra-ui/react';
 import { BsArrowLeftRight } from 'react-icons/bs';
 import { IoAirplaneOutline } from 'react-icons/io5';
 import { BiCurrentLocation } from 'react-icons/bi';
-
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../Contexts/AppContext/AppContext';
 
 
 function TripSelectors({ handleImage }) {
+    const { appState } = useAppContext();
+    const navigate = useNavigate();
 
     function doChange(id) {
         handleImage(id);
@@ -35,7 +38,7 @@ function TripSelectors({ handleImage }) {
                             h='100%'
                             pointerEvents='none'
                             children={<BiCurrentLocation color='green' />} />
-                        <Input bg='white' h='100%' />
+                        <Input value={appState.location} readOnly onClick={() => { navigate('/locationFinder') }} bg='white' h='100%' />
                     </InputGroup>
                     <Button h='54px' w='full'>FIND CARS</Button>
                 </TabPanel>
