@@ -2,7 +2,7 @@ import {
     Alert,
     AlertIcon,
     AlertTitle,
-    AlertDescription, Box, CloseButton,
+    AlertDescription, Box, CloseButton, HStack,
 } from '@chakra-ui/react'
 
 export default function AlertMessage({ showMessage, messageCloseToggle }) {
@@ -14,18 +14,20 @@ export default function AlertMessage({ showMessage, messageCloseToggle }) {
 
 
     if (showMessage)
-        return <Alert position='fixed' zIndex='888' w='50%' left='25%' variant='solid' status='success'>
-            <AlertIcon />
-            <Box>
-                <AlertTitle>Success!</AlertTitle>
-                <AlertDescription>
-                    Profile is successfully updated.
-                </AlertDescription>
-            </Box>
+        return <Alert justifyContent='space-between' position='fixed' zIndex='888' w={{ base: '99%', md: '50%' }} left={{ base: '0%', md: '25%' }} variant='solid' status='success'>
+            <HStack>
+                <AlertIcon />
+                <Box>
+                    <AlertTitle>Success!</AlertTitle>
+                    <AlertDescription>
+                        Profile is successfully updated.
+                    </AlertDescription>
+                </Box>
+            </HStack>
             <CloseButton
-                alignSelf='flex-start'
+                alignSelf='center'
                 position='relative'
-                right={-360}
+                right={{ base: 'auto', lg: -360 }}
                 top={1}
                 size='lg'
                 onClick={() => { messageCloseToggle(false) }}
