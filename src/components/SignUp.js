@@ -16,6 +16,7 @@ const initialState = {
 }
 function SignUp() {
     const [user, setUser] = React.useState(initialState);
+    const [loading, setLoading] = React.useState(false);
     const { authState, authDispatch, handleFormsToggle, toggleAuthForms } = React.useContext(AuthContext);
 
     async function setUserWithId(id, data) {
@@ -24,7 +25,8 @@ function SignUp() {
     }
 
     function handleSubmit() {
-        authDispatch({ type: 'LOADING' });
+        // authDispatch({ type: 'LOADING' });
+        setLoading(true);
         createUserWithEmailAndPassword(auth, user.email, user.password)
             .then((userCredential) => {
                 // Signed in 
@@ -37,7 +39,8 @@ function SignUp() {
                 setUserWithId(SignedUpUser.email, updateData);
                 // console.log(user.accessToken);
                 if (SignedUpUser.accessToken) handleFormsToggle(true);
-                authDispatch({ type: 'LOADED' });
+                // authDispatch({ type: 'LOADED' });
+                setLoading(false);
                 // ...
             })
             .catch((error) => {
@@ -45,7 +48,8 @@ function SignUp() {
                 const errorMessage = error.message;
                 // ..
                 console.log(errorMessage)
-                authDispatch({ type: 'LOADED' });
+                // authDispatch({ type: 'LOADED' });
+                setLoading(false);
                 alert('something went wrong');
                 handleFormsToggle(false);
             });
@@ -83,7 +87,7 @@ function SignUp() {
                 </InputGroup>
                 <FormErrorMessage>Please enter your name</FormErrorMessage>
             </FormControl>
-            <Button isLoading={authState.loading} onClick={handleSubmit} variant='outline' colorScheme={'facebook'}>Sign Up</Button>
+            <Button isLoading={loading} onClick={handleSubmit} variant='outline' colorScheme={'facebook'}>Sign Up</Button>
             <Box textAlign='right'><Text color='grey' fontWeight='normal' fontSize='14px'>Navigate to <CustomSpan onClick={() => { handleFormsToggle(true) }}>Sign In</CustomSpan></Text></Box>
         </Box>
     )

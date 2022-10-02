@@ -5,6 +5,7 @@ import { IoAirplaneOutline } from 'react-icons/io5';
 import { BiCurrentLocation } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../Contexts/AppContext/AppContext';
+import DateAndTimePicker from './DateAndTimePicker';
 
 
 function TripSelectors({ handleImage }) {
@@ -15,9 +16,13 @@ function TripSelectors({ handleImage }) {
         handleImage(id);
     }
 
+    const handleFindCars = () => {
+        
+    }
+
     return (
-        <Tabs isFitted variant='enclosed' mb='130px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
-            <TabList mb='1em' bg='white' h='62px'>
+        <Tabs isFitted variant='enclosed' mb='190px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
+            <TabList mb='10px' bg='white' h='62px'>
                 <Tab p='7'>
                     <VStack>
                         <BsArrowLeftRight />
@@ -33,14 +38,22 @@ function TripSelectors({ handleImage }) {
             </TabList>
             <TabPanels w='450px'>
                 <TabPanel h='54px' p='0' mb='5'>
-                    <InputGroup h='100%' mb='3'>
+                    <InputGroup h='100%' mb='1'>
                         <InputLeftElement
                             h='100%'
                             pointerEvents='none'
                             children={<BiCurrentLocation color='green' />} />
-                        <Input value={appState.location} readOnly onClick={() => { navigate('/locationFinder') }} bg='white' h='100%' />
+                        <Input value={appState.location} readOnly onClick={() => { navigate('/locationFinder') }} bg='white' h='100%' placeholder='Enter the Pickup Location' />
                     </InputGroup>
-                    <Button h='54px' w='full'>FIND CARS</Button>
+                    {appState.location && <InputGroup h='100%' mb='1'>
+                        <InputLeftElement
+                            h='100%'
+                            pointerEvents='none'
+                            children={<BiCurrentLocation color='red' />} />
+                        <Input value={appState.dropLocation} readOnly onClick={() => { navigate('/dropLocation') }} bg='white' h='100%' placeholder='Enter the Drop Location' />
+                    </InputGroup>}
+                    {appState.location && appState.dropLocation && <DateAndTimePicker />}
+                    <Button onClick={handleFindCars} h='54px' w='full'>FIND CARS</Button>
                 </TabPanel>
                 <TabPanel h='54px' p='0' mb='5'>
                     <InputGroup h='100%' mb='3'>

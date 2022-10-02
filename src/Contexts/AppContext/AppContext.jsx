@@ -10,12 +10,33 @@ export function useAppContext() {
 
 const initialState = {
   location: '',
+  dropLocation: '',
+  pickAndDropTime: {
+    picktime: {
+      date: '',
+      month: '',
+      year: '',
+      time: {
+        hours: '',
+        mins: '',
+      },
+    },
+    droptime: {
+      date: '',
+      month: '',
+      year: '',
+      time: {
+        hours: '',
+        mins: '',
+      },
+    },
+  },
 }
 
 export default function AppContextProvider({ children }) {
   const { authState } = React.useContext(AuthContext)
-    initialState.location = authState.userDetails.city;
-    const [appState, appDispatch] = React.useReducer(appReducer, initialState);
+  initialState.location = authState.userDetails.city
+  const [appState, appDispatch] = React.useReducer(appReducer, initialState)
   const value = {
     appState,
     appDispatch,

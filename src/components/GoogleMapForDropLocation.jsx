@@ -5,12 +5,11 @@ import styled from 'styled-components'
 import { useAppContext } from '../Contexts/AppContext/AppContext'
 import { useNavigate } from 'react-router-dom'
 
-export default function GoogleMap() {
+export default function GoogleMapForDropLocation() {
   const { appState, appDispatch } = useAppContext()
   const navigate = useNavigate()
 
   function handleSubmit() {
-    
     navigate('/')
   }
 
@@ -25,9 +24,12 @@ export default function GoogleMap() {
       >
         <FormControl w={{ base: '60%', lg: '450px' }}>
           <Input
-            value={appState.location}
+            value={appState.dropLocation}
             onChange={(e) => {
-              appDispatch({ type: 'ADD_LOCATION', payload: e.target.value })
+              appDispatch({
+                type: 'ADD_DROP_LOCATION',
+                payload: e.target.value,
+              })
             }}
             outline="1px solid #718096"
           />
@@ -42,7 +44,7 @@ export default function GoogleMap() {
         scrolling="no"
         marginheight="0"
         marginwidth="0"
-        src={`https://maps.google.com/maps?width=690&amp&height=510&amp&hl=en&amp&q=${appState.location}&amp&t=&amp&z=14&amp&ie=UTF8&amp&iwloc=B&amp&output=embed`}
+        src={`https://maps.google.com/maps?width=690&amp&height=510&amp&hl=en&amp&q=${appState.dropLocation}&amp&t=&amp&z=14&amp&ie=UTF8&amp&iwloc=B&amp&output=embed`}
       ></Iframe>
     </Wrapper>
   )
@@ -64,5 +66,4 @@ const Iframe = styled.iframe`
     margin: auto;
     margin-top: 10px;
   }
-  
 `
