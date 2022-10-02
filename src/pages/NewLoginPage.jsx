@@ -33,7 +33,7 @@ function NewLoginPage() {
         w={{ base: '99%', lg: '90%' }}
         p="15px"
         m="auto"
-        mb={{ base: '15px', lg: '10px' }}
+        mb={{ base: '15px', lg: '14px' }}
         h={{ base: 'fit-content', md: '270px' }}
         position="relative"
         justify="space-between"
@@ -89,7 +89,7 @@ function NewLoginPage() {
         rounded="full"
         w="40px"
         h="40px"
-        display="flex"
+        display={{base:"flex",lg:'none'}}
         justifyContent="center"
         alignItems="center"
         bg="white"
