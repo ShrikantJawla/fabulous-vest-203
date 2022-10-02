@@ -12,12 +12,14 @@ const initialState = {
     password: ''
 }
 function SignIn() {
+    const [loading, setLoading] = React.useState(false);
     const [user, setUser] = React.useState(initialState);
     const { authState, authDispatch, handleFormsToggle } = React.useContext(AuthContext);
     const navigate = useNavigate();
 
     function handleSubmit() {
-        authDispatch({ type: 'LOADING' });
+        // authDispatch({ type: 'LOADING' });
+        setLoading(true);
         signInWithEmailAndPassword(auth, user.email, user.password)
             .then((userCredential) => {
                 // Signed in 
@@ -29,14 +31,16 @@ function SignIn() {
                 }
                 localStorage.setItem('loginedUser', JSON.stringify(updateData));
                 authDispatch({ type: 'LOGIN', payload: updateData });
-                authDispatch({ type: 'LOADED' });
+                // authDispatch({ type: 'LOADED' });
+                setLoading(false);
                 navigate('/');
                 // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                authDispatch({ type: 'LOADED' });
+                // authDispatch({ type: 'LOADED' });
+                setLoading(false);
                 alert('something went wrong!')
             });
         setUser(initialState);
@@ -70,7 +74,7 @@ function SignIn() {
                 </InputGroup>
                 <FormErrorMessage>Please enter your name</FormErrorMessage>
             </FormControl>
-            <Button isLoading={authState.loading} onClick={handleSubmit} variant='outline' colorScheme={'facebook'}>Sign In</Button>
+            <Button isLoading={loading} onClick={handleSubmit} variant='outline' colorScheme={'facebook'}>Sign In</Button>
             <Box textAlign='right'><Text color='grey' fontWeight='normal' fontSize='14px'>Navigate to <CustomSpan onClick={() => { handleFormsToggle(false) }}>Sign Up</CustomSpan></Text></Box>
         </Box>
     )

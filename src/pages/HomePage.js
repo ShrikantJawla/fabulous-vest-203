@@ -19,7 +19,7 @@ function HomePage() {
         if (id === 0) setImage(image1);
         else setImage(image2);
     }
-    console.log(authState.userDetails);
+    // console.log(authState.userDetails);
     return (
         <Box w='full' >
             <Navbar />

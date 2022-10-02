@@ -7,6 +7,8 @@ import ProfilePage from './../pages/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 import HostPage from '../pages/HostPage';
 import GoogleMap from './GoogleMap';
+import GoogleMapForDropLocation from './GoogleMapForDropLocation'
+import NewLoginPage from '../pages/NewLoginPage';
 
 function AllRoutes() {
     return (
@@ -16,6 +18,8 @@ function AllRoutes() {
             <Route path='/profile' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
             <Route path='/host' element={<PrivateRoute><HostPage /></PrivateRoute>} />
             <Route path='/locationFinder' element={<GoogleMap />} />
+            <Route path='/newLoginPage' element={<NewLoginPage />} />
+            <Route path='/dropLocation' element={<GoogleMapForDropLocation />} />
             <Route path='*' element={<NoPageFound />} />
         </Routes >
     )

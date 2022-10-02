@@ -1,11 +1,12 @@
 import React from 'react'
-import { Box, IconButton } from '@chakra-ui/react';
+import { Box, HStack, IconButton, Text } from '@chakra-ui/react';
 import { ImFacebook2 } from 'react-icons/im'
 import { db, auth, getSingleItem } from './../../Configs/firebaseConfigs';
 import { FacebookAuthProvider, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
 import { doc, setDoc } from "firebase/firestore";
+import { FaFacebookF } from 'react-icons/fa';
 
 function FacebookLogin() {
     const navigate = useNavigate();
@@ -25,7 +26,6 @@ function FacebookLogin() {
 
 
     function handleSubmit() {
-        authDispatch({ type: 'LOADING' });
         signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -33,7 +33,6 @@ function FacebookLogin() {
                 const token = credential.accessToken;
                 // console.log(token)
                 // The signed-in user info.
-                authDispatch({ type: 'LOADED' });
                 const user = result.user;
                 console.log(result)
                 let updateData = {
@@ -65,7 +64,6 @@ function FacebookLogin() {
                 // The AuthCredential type that was used.
                 const credential = FacebookAuthProvider.credentialFromError(error);
                 alert('something went wrong');
-                authDispatch({ type: 'LOADED' });
                 // ...
             });
     }
@@ -73,7 +71,13 @@ function FacebookLogin() {
 
     return (
         <Box >
-            <IconButton onClick={handleSubmit} variant='outline' size='lg' icon={<ImFacebook2 color='#4267B2' size='28px' />} />
+            {/* <IconButton  variant='outline' size='lg' icon={<ImFacebook2 color='#4267B2' size='28px' />} /> */}
+            <Box >
+                <HStack onClick={handleSubmit} px='6' _hover={{ bg: '#1a1aff', cursor: 'pointer' }} h='40px' bg='facebook.700' rounded='5' color='white' onClick={handleSubmit} w='200px'>
+                    <FaFacebookF size='22px' />
+                    <Text fontSize={18} fontWeight='500'>Facebook</Text>
+                </HStack>
+            </Box>
         </Box>
     )
 }
