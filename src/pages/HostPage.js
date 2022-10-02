@@ -68,7 +68,7 @@ function HostPage() {
                 {/* Crousel part */}
                 <Box mb='20'>
                     <Heading fontSize={{ base: '24px', lg: '40px' }}>How we protect your car</Heading>
-                    <HStack overflow='auto' h='400px' boxShadow='lg'>
+                    <HStack overflow='auto' h='400px' boxShadow='lg' px='4'>
                         <VStack>
                             <Image w='300px' src='/images/host-page-damage-repair-image.svg' />
                             <VStack align='flex-start' w='360px'>
