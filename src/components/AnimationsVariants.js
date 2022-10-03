@@ -14,6 +14,7 @@ export const BoxExitVariant = {
     exit: {
         x: '110vw',
         opacity: 0.2,
+        // display:'none',
         transition: {
             delay: 0.1,
             duration: 0.5,
