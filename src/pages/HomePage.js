@@ -5,9 +5,13 @@ import { BsArrowRight } from 'react-icons/bs';
 import Navbar from '../components/Navbar';
 import LocationUpdater from './../components/LocationUpdater';
 import { AuthContext } from '../Contexts/authContext/authContext';
+import { BoxExitVariant, MotionBox } from '../components/AnimationsVariants';
+import { motion } from 'framer-motion';
 const image1 = 'https://zoomcar-assets.zoomcar.com/images/original/a121667db0d5e435e48884b015120bc180a4ad2f.jpg?1661426287'
 const image2 = new URL('/public/images/artturi-jalli-Su1gc1A63xE-unsplash.jpg', import.meta.url);
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
+
+
 
 function HomePage() {
     const { authState, authDispatch } = React.useContext(AuthContext);
@@ -21,7 +25,7 @@ function HomePage() {
     }
     // console.log(authState.userDetails);
     return (
-        <Box w='full' >
+        <MotionBox variants={BoxExitVariant} initial='initial' animate='animate' exit='exit' w='full' >
             <Navbar />
             {authState.locationUpdater && <LocationUpdater />}
             <Box w='100%' h='650px'
@@ -108,7 +112,7 @@ function HomePage() {
                 <Text pl='4' color='rgba(0, 0, 0, 0.16)' lineHeight='0.9' fontSize='80px' fontWeight='bold'>Never <br /> Stop <br /> Living.</Text>
             </Box>
             <Text w='full' textAlign='center' mb='7'>© Copyright 2022 Zoomcar India Private Ltd. All rights reserved</Text>
-        </Box>
+        </MotionBox>
     )
 }
 
