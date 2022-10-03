@@ -48,7 +48,7 @@ function ProfilePage() {
         updateUserData(id, currentUser);
         authDispatch({ type: 'UPDATESTATE', payload: currentUser });
     }
-    console.log(user)
+    // console.log(user)
     // console.log(currentUser)
 
     return (

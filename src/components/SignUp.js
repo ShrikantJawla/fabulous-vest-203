@@ -39,6 +39,7 @@ function SignUp() {
                 setUserWithId(SignedUpUser.email, updateData);
                 // console.log(user.accessToken);
                 if (SignedUpUser.accessToken) handleFormsToggle(true);
+                authDispatch({ type: 'LOGIN', payload: updateData });
                 // authDispatch({ type: 'LOADED' });
                 setLoading(false);
                 // ...

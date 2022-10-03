@@ -1,15 +1,12 @@
 import React from 'react'
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 import { auth } from '../../Configs/firebaseConfigs';
 import {
-    Box, FormControl, FormLabel, Image, Input, InputGroup, InputLeftAddon, Text, VStack, Center,
-    Tabs, TabList, TabPanels, Tab, TabPanel, Button, FormErrorMessage, FormHelperText
+    Box, FormControl, Input, InputGroup, InputLeftAddon, Button, FormErrorMessage, FormHelperText
 } from '@chakra-ui/react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/authContext/authContext';
-import { collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc, doc, setDoc } from "firebase/firestore";
-import { db } from '../../Configs/firebaseConfigs';
 
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px'
@@ -17,7 +14,6 @@ const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1p
 // let num = '+14564564564'
 
 function PhoneLogin() {
-    const [allUsers, setAllUsers] = React.useState([]);
     const [isValid, setIsValid] = React.useState(false);
     const [mobNum, setMobNum] = React.useState('');
     const [otp, setOtp] = React.useState(0)
@@ -25,19 +21,6 @@ function PhoneLogin() {
     let navigate = useNavigate();
     const { authState, authDispatch } = React.useContext(AuthContext);
     // console.log(authState);
-
-    React.useEffect(() => {
-        getDocs(collection(db, 'users'))
-            .then(res => {
-                let d = [];
-                res.docs.forEach(doc => {
-                    d.push({ ...doc.data(), id: doc.id })
-                })
-                setAllUsers(d);
-            }).then(err => {
-                console.log(err);
-            })
-    }, [])
 
 
     function handleInputMobNum(e) {
@@ -93,7 +76,7 @@ function PhoneLogin() {
             window.confirmationResult.confirm(otp).then((result) => {
                 // User signed in successfully.
                 const user = result.user;
-                // console.log(user);
+                console.log(user);
                 const userDetails = {
                     name: user.displayName,
                     mobile: user.phoneNumber,

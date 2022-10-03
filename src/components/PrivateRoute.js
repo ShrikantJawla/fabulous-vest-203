@@ -6,7 +6,7 @@ import { AuthContext } from '../Contexts/authContext/authContext';
 function PrivateRoute({ children }) {
     const { authState } = React.useContext(AuthContext);
 
-    if (!authState.isAuth) return <Navigate to='/login' />;
+    if (!authState.isAuth) return <Navigate to='/login' key='/login'/>;
 
 
     return children;
