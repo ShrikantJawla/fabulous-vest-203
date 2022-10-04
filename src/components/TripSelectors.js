@@ -23,7 +23,7 @@ function TripSelectors({ handleImage }) {
     }
 
     return (
-        <MotionTabs isFitted initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} variant='enclosed' mb='190px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
+        <MotionTabs isFitted initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} variant='enclosed' mb='290px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
             <TabList mb='10px' bg='white' h='62px'>
                 <Tab p='7'>
                     <VStack>

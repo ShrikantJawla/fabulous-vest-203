@@ -29,7 +29,7 @@ function HostPage() {
             <PageScrollBar />
             <Box w={{ base: '99%', lg: '85%' }} m='auto'>
                 {/* First Photo of Page */}
-                <MotionBox style={{ scale: newScale, y: newY, marginBottom: newMargin }} pt='70px' mb='8'>
+                <MotionBox style={{ scale: newScale, y: newY, marginBottom: newMargin }} mb='8'>
                     <Box
                         h='400px'
                         backgroundImage={`url(/images/host-page-first-image.jpg)`}
