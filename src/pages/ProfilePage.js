@@ -52,7 +52,7 @@ function ProfilePage() {
     // console.log(currentUser)
 
     return (
-        <Box mt='100px' w='full'>
+        <Box w='full'>
             <Navbar />
             <AlertMessage showMessage={showMessage} messageCloseToggle={messageCloseToggle} />
             <Grid templateColumns={{ base: '100%', lg: '26% 68%' }} gap='3' justifyContent='center'>
