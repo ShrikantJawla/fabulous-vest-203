@@ -1,13 +1,13 @@
 import React from 'react'
 import Navbar from '../../components/Navbar';
 import NewLoginPage from '../NewLoginPage';
-import { MotionCenter, BoxExitVariant } from '../../components/AnimationsVariants';
+import { BoxExitVariant, MotionBox } from '../../components/AnimationsVariants';
 import { AuthContext } from '../../Contexts/authContext/authContext';
 
 function LoginPage() {
     const { authState } = React.useContext(AuthContext);
     return (
-        <MotionCenter variants={BoxExitVariant} initial='initial' animate='animate' w='100vw' h='100vh'
+        <MotionBox variants={BoxExitVariant} initial='initial' animate='animate' w='100vw' h='100vh'
             backgroundImage={`url(images/login-photo.svg)`}
             backgroundRepeat='no-repeat'
             backgroundSize='cover'
@@ -37,7 +37,7 @@ function LoginPage() {
 
             </VStack> */}
             <NewLoginPage />
-        </MotionCenter>
+        </MotionBox>
     )
 }
 

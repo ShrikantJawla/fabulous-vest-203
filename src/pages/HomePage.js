@@ -1,16 +1,23 @@
 import React from 'react'
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Center, Divider, Heading, HStack, Image, Stack, Text, VStack } from '@chakra-ui/react';
+import {
+    Accordion, AccordionButton, AccordionIcon, AccordionItem,
+    AccordionPanel, Box, Center, Divider, HStack, Image, Stack, Text, VStack
+} from '@chakra-ui/react';
 import TripSelectors from '../components/TripSelectors';
 import { BsArrowRight } from 'react-icons/bs';
 import Navbar from '../components/Navbar';
 import LocationUpdater from './../components/LocationUpdater';
 import { AuthContext } from '../Contexts/authContext/authContext';
-import { BoxExitVariant, MotionBox } from '../components/AnimationsVariants';
+import { MotionBox, MotionText } from '../components/AnimationsVariants';
 import { motion } from 'framer-motion';
 const image1 = 'https://zoomcar-assets.zoomcar.com/images/original/a121667db0d5e435e48884b015120bc180a4ad2f.jpg?1661426287'
 const image2 = new URL('/public/images/artturi-jalli-Su1gc1A63xE-unsplash.jpg', import.meta.url);
 const shadow = 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px'
 
+
+
+const MotionVStack = motion(VStack)
+const MotionHStack = motion(HStack)
 
 
 function HomePage() {
@@ -41,7 +48,7 @@ function HomePage() {
             </Box>
 
             <Center width='full' display='flex' flexDir={{ base: 'column', lg: 'row' }} justifyContent='center' p='5' gap='10' mb='8'>
-                <VStack h={{ base: '200px', md: '248px' }} shadow={shadow} w={{ base: '100%', md: '470px' }} >
+                <MotionVStack variants={StackVariant} initial='hidden' whileInView='viewAtVisible' h={{ base: '200px', md: '248px' }} shadow={shadow} w={{ base: '100%', md: '470px' }} >
                     <HStack >
                         <VStack p={{ base: '4', md: '6' }} >
                             <Text fontWeight='bold' fontSize={{ base: '15px', md: '18px' }}>You and your buddy up for a long drive?</Text>
@@ -54,8 +61,8 @@ function HomePage() {
                         <BsArrowRight size='22px' color='green' />
                         <Text fontWeight='700' style={{ marginLeft: "15px" }}>REFER FRIENDS</Text>
                     </HStack>
-                </VStack>
-                <HStack h={{ base: '200px', md: '248px' }} shadow={shadow} p='5' w={{ base: '100%', md: '470px' }} >
+                </MotionVStack>
+                <MotionHStack variants={StackVariant} initial='hiddenRightBox' whileInView='viewAtVisible' h={{ base: '200px', md: '248px' }} shadow={shadow} p='5' w={{ base: '100%', md: '470px' }} >
                     <Stack textAlign='left' dir='column'>
                         <Text w='full' fontWeight='bold' fontSize={{ base: '18px', md: '24px' }}>UP TO 20% OFF</Text>
                         <Text fontWeight='700' color='grey' fontSize={{ base: '13px', md: '16px' }} style={{ marginBottom: '10px' }}>on your first booking from the app!</Text>
@@ -63,7 +70,7 @@ function HomePage() {
                         <Text fontWeight='bold' fontSize={{ base: '16px', md: '20px' }} color='green'>Install Zoomcar App now!</Text>
                     </Stack>
                     <Image w={{ base: '100px', md: '140px' }} src='/images/cellphone.png' />
-                </HStack>
+                </MotionHStack>
             </Center>
 
             <Box w='full' bg='rgba(0, 0, 0, 0.06)' h='fit-content' pt='3' py='3'>
@@ -109,7 +116,7 @@ function HomePage() {
             </Box>
 
             <Box w='full' mt='14' mb='6'>
-                <Text pl='4' color='rgba(0, 0, 0, 0.16)' lineHeight='0.9' fontSize='80px' fontWeight='bold'>Never <br /> Stop <br /> Living.</Text>
+                <MotionText variants={LastTextVariant} initial='hidden' whileInView='visible' pl='4' color='rgba(0, 0, 0, 0.16)' lineHeight='0.9' fontSize='80px' fontWeight='bold'>Never <br /> Stop <br /> Living.</MotionText>
             </Box>
             <Text w='full' textAlign='center' mb='7'>© Copyright 2022 Zoomcar India Private Ltd. All rights reserved</Text>
         </MotionBox>
@@ -117,3 +124,63 @@ function HomePage() {
 }
 
 export default HomePage
+
+
+const StackVariant = {
+    hidden: { opacity: 0, x: -150 },
+    hiddenRightBox: { opacity: 0, x: 150 },
+    viewAtVisible: {
+        opacity: 1, x: 0,
+        transition: {
+            delay: 0.2,
+            duration: 0.5
+        }
+    }
+}
+
+
+const BoxExitVariant = {
+    initial: {
+        x: '-100vw',
+        opacity: 0,
+    },
+    animate: {
+        x: 0,
+        opacity: 1,
+        transition: { delay: 0.1, duration: 0.5 },
+    },
+    exit: {
+        x: '110vw',
+        opacity: 0.2,
+        // display:'none',
+        transition: {
+            delay: 0.1,
+            duration: 0.5,
+        },
+    },
+}
+
+
+const LastTextVariant = {
+    hidden: {
+        opacity: 0,
+        scale: 0.5,
+        color: 'black',
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        color: 'rgba(0, 0, 0, 0.16)',
+        transition: {
+            color: {
+                yoyo: Infinity,
+                delay: 0.2,
+                duration: 0.5,
+                ease: 'easeInOut'
+            },
+            delay: 0.2,
+            duration: 0.5,
+            ease: 'easeInOut'
+        }
+    }
+}

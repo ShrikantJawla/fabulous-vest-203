@@ -1,21 +1,35 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Heading, HStack, IconButton, Image, Stack, Text, VStack } from '@chakra-ui/react'
+import {
+    Accordion, AccordionButton, AccordionIcon, AccordionItem,
+    AccordionPanel, Box, Button, Heading, HStack, Image, Stack, Text, VStack
+} from '@chakra-ui/react'
 import React from 'react'
 import Navbar from '../components/Navbar'
 import { HiOutlineShare } from 'react-icons/hi'
-const buttonColor = '#10A310'
+import { useScroll,  useTransform, motion } from 'framer-motion'
+import PageScrollBar from '../components/PageScrollBar'
 
+const buttonColor = '#10A310'
 function customButton(text) {
     return <Button borderRadius='5' fontSize={15} _hover={{ bg: 'green' }} size='lg' variant='solid' color='white' bg={buttonColor}>{text}</Button>
 }
-
+const MotionBox = motion(Box);
+const MotionVStack = motion(VStack)
+const MotionText = motion(Text);
 
 function HostPage() {
+    const { scrollY } = useScroll();
+
+    const newScale = useTransform(scrollY, [0, 200], [1, 0.8]);
+    const newY = useTransform(scrollY, [0, 200], [0, 160]);
+    const newMargin = useTransform(scrollY, [0, 200], [8, 130]);
+
     return (
-        <Box w='full'>
+        <MotionBox variants={BoxExitVariant} initial='initial' animate='animate' exit='exit' w='full' >
             <Navbar />
+            <PageScrollBar />
             <Box w={{ base: '99%', lg: '85%' }} m='auto'>
                 {/* First Photo of Page */}
-                <Box pt='70px' mb='8'>
+                <MotionBox style={{ scale: newScale, y: newY, marginBottom: newMargin }} pt='70px' mb='8'>
                     <Box
                         h='400px'
                         backgroundImage={`url(/images/host-page-first-image.jpg)`}
@@ -30,7 +44,7 @@ function HostPage() {
                         <Text mb='6' color='white'>7 seater cars get ans additional joining bonus of Rs 7500 on sign-up</Text>
                         {customButton('START EARNING')}
                     </Box>
-                </Box>
+                </MotionBox>
                 {/* Vedio part */}
                 <Box h='400px' boxShadow='lg' mb='10'>
                     <video style={{ width: '100%', height: '100%' }} muted preload='auto' loop controls autoPlay src='/videos/64440836bb2a2ee19961407349dece57.mp4'></video>
@@ -142,10 +156,10 @@ function HostPage() {
                 </VStack>
 
                 {/* Refer and earn */}
-                <VStack mb={20} borderRadius='10' p={12} backgroundImage='linear-gradient(270deg,#444,#000)'>
-                    <Stack direction={{base:'column',md:'row'}} w="full" justify='space-between' spacing={{base:7,lg:'1'}}>
+                <MotionVStack w={{ base: '90%', lg: 'full' }} m='auto' viewport={{ amount: 0.4 }} initial={{ opacity: 0.5 }} whileInView={{ scale: 1.15, opacity: 1 }} transition={{ duration: 0.2 }} mb={20} borderRadius='10' p={12} backgroundImage='linear-gradient(270deg,#444,#000)'>
+                    <Stack direction={{ base: 'column', md: 'row' }} w="full" justify='space-between' spacing={{ base: 7, lg: '1' }}>
                         <VStack align='flex-start'>
-                            <Heading fontSize={{base:'20px',lg:''}} fontWeight={600} color='white'>You Earn Rs 4999/- <br /> Your Friend Gets upto <br /> Rs 4999/- <br />
+                            <Heading fontSize={{ base: '20px', lg: '' }} fontWeight={600} color='white'>You Earn Rs 4999/- <br /> Your Friend Gets upto <br /> Rs 4999/- <br />
                             </Heading>
                             <Text fontSize='18px' fontWeight='normal' color='white'>Your Both Win</Text>
                             {customButton('REFER AND EARN')}
@@ -164,10 +178,10 @@ function HostPage() {
                             <HiOutlineShare color='white' />
                         </Box>
                     </HStack>
-                </VStack>
+                </MotionVStack>
 
                 <VStack bg='#f5f5f5' w='full' height='400px' mb='20' pt='20'>
-                    <Text fontSize={{base:22,lg:25}} fontWeight={600}>Users love Zoomcar Host program. Our app has 4.5+ rating on play store!</Text>
+                    <Text fontSize={{ base: 22, lg: 25 }} fontWeight={600}>Users love Zoomcar Host program. Our app has 4.5+ rating on play store!</Text>
                     <video style={{ width: '100%', height: '100%' }} loop autoPlay src='/videos/host-page-stars-video.mp4' ></video>
                 </VStack>
 
@@ -228,10 +242,10 @@ function HostPage() {
                 </HStack>
 
                 <Stack direction={{ base: 'column', lg: 'row' }} w='full' mb='20'>
-                    <Heading w={{ base:'90%',lg:'30%'}}>
+                    <Heading w={{ base: '90%', lg: '30%' }}>
                         Still have <br /> questions?
                     </Heading>
-                    <Box w={{base:'99%',lg:'65%'}}>
+                    <Box w={{ base: '99%', lg: '65%' }}>
                         <Accordion w='full'>
                             <AccordionItem p='3'>
                                 <h2>
@@ -295,13 +309,60 @@ function HostPage() {
 
                 <Box bg='#f5f5f5'>
                     <Box w='full' mt='14' mb='6'>
-                        <Text pl='4' color='rgba(0, 0, 0, 0.16)' lineHeight='0.9' fontSize='50px' fontWeight='bold'>Never <br /> Stop <br /> Living.</Text>
+                        <MotionText variants={LastTextVariant} initial='hidden' whileInView='visible' pl='4' color='rgba(0, 0, 0, 0.16)' lineHeight='0.9' fontSize='50px' fontWeight='bold'>Never <br /> Stop <br /> Living.</MotionText>
                     </Box>
                     <Text w='full' textAlign='center' mb='7'>© Copyright 2022 Zoomcar India Private Ltd. All rights reserved</Text>
                 </Box>
             </Box>
-        </Box>
+        </MotionBox>
     )
 }
 
 export default HostPage
+
+
+const LastTextVariant = {
+    hidden: {
+        opacity: 0,
+        scale: 0.5,
+        color: 'black',
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        color: 'rgba(0, 0, 0, 0.16)',
+        transition: {
+            color: {
+                yoyo: Infinity,
+                delay: 0.2,
+                duration: 0.5,
+                ease: 'easeInOut'
+            },
+            delay: 0.2,
+            duration: 0.5,
+            ease: 'easeInOut'
+        }
+    }
+}
+
+
+const BoxExitVariant = {
+    initial: {
+        x: '-100vw',
+        opacity: 0,
+    },
+    animate: {
+        x: 0,
+        opacity: 1,
+        transition: { delay: 0.1, duration: 0.5 },
+    },
+    exit: {
+        x: '110vw',
+        opacity: 0.2,
+        // display:'none',
+        transition: {
+            delay: 0.1,
+            duration: 0.5,
+        },
+    },
+}

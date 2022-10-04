@@ -6,7 +6,9 @@ import { BiCurrentLocation } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../Contexts/AppContext/AppContext';
 import DateAndTimePicker from './DateAndTimePicker';
+import { motion } from 'framer-motion';
 
+const MotionTabs = motion(Tabs);
 
 function TripSelectors({ handleImage }) {
     const { appState } = useAppContext();
@@ -17,11 +19,11 @@ function TripSelectors({ handleImage }) {
     }
 
     const handleFindCars = () => {
-        
+
     }
 
     return (
-        <Tabs isFitted variant='enclosed' mb='190px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
+        <MotionTabs isFitted initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }} variant='enclosed' mb='190px' w={{ base: '95%', md: '400px' }} onChange={(id) => { doChange(id) }}>
             <TabList mb='10px' bg='white' h='62px'>
                 <Tab p='7'>
                     <VStack>
@@ -73,7 +75,7 @@ function TripSelectors({ handleImage }) {
                     <Button h='54px' w='full' colorScheme='green'>FIND CARS</Button>
                 </TabPanel>
             </TabPanels>
-        </Tabs>
+        </MotionTabs>
     )
 }
 

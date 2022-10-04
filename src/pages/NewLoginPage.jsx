@@ -15,7 +15,7 @@ function NewLoginPage() {
       boxShadow={shadow}
       rounded="7"
       p="10px"
-      mt={{base:"90px",lg:'120px'}}
+      mt={{base:"10px",lg:'30px'}}
       position="relative"
       bg="white"
     >

@@ -15,7 +15,7 @@ function AllRoutes() {
     const location = useLocation();
     return (
         <AnimatePresence mode='wait'>
-            <Routes location={location} key={location.key} >
+            <Routes location={location} state='hellooo' key={location.key} >
                 <Route path='/' element={<HomePage />} />
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/profile' element={<PrivateRoute><ProfilePage /></PrivateRoute>} />

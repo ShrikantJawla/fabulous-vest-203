@@ -57,11 +57,11 @@ function Navbar() {
 
 
     return (
-        <MotionBox variants={BoxVariant} initial='hidden' animate='visible' w='full' bg={{ base: 'transparent', lg: 'black' }} pos='fixed' top='0' zIndex='898'>
+        <MotionBox variants={BoxVariant} initial='hidden' animate='visible' w='full' bg={{ base: 'transparent', lg: 'black' }} pos='sticky' top='0' zIndex='898'>
             <HStack w='full' h='80px' p='7' spacing={3}>
                 {/* <IconButton _hover={{ bg: 'grey' }} variant='ghost' color={{ base: "black", lg: 'white' }} icon={<GiHamburgerMenu size='24px' />} /> */}
                 <SideNav1 />
-                <Link to='/'><Image display={{ base: "none", lg: 'block' }} src='/images/Zoom-car-logo edited.png' w='170px' /></Link>
+                <Link state='helllooo' to='/'><Image display={{ base: "none", lg: 'block' }} src='/images/Zoom-car-logo edited.png' w='170px' /></Link>
                 <Spacer />
                 <HStack spacing={{ base: 'none', lg: 20 }}>
                     <Link to='/host'><Box _hover={{ cursor: 'pointer' }} display={{ lg: 'none' }} py='2' px='4' fontSize='19px' fontWeight='bold' rounded='full' color='white' bg='black'>Host</Box></Link>

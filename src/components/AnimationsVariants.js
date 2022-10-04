@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { Box, Button, Center, Text } from '@chakra-ui/react'
+import { Box, Button, Center, Text, VStack } from '@chakra-ui/react'
 
 export const BoxExitVariant = {
     initial: {
@@ -31,7 +31,8 @@ const MotionBox = motion(Box)
 const MotionButton = motion(Button)
 const MotionText = motion(Text)
 const MotionCenter = motion(Center)
+const MotionVStack = motion(VStack)
 
 
 
-export { MotionButton, MotionBox, MotionText, MotionCenter }
+export { MotionButton, MotionBox, MotionText, MotionCenter, MotionVStack }
