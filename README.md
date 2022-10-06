@@ -72,13 +72,13 @@ Profile page after user Logged In,
 -  **Used Private routing so that user can open login page only after logged in**
 ![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/7.2.png?raw=true)
 
-Dialog box to choose trip pick up and drop location:
+- Dialog box to choose trip pick up and drop location:
 ![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/2.png?raw=true)
 
-You can see location on map while filling the input box, I wanted to also use pick up functionality on map but google has made that api paid now.
+- You can see location on map while filling the input box, I wanted to also use pick up functionality on map but google has made that api paid now.
 ![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/9.png?raw=true)
 
-Host page: it will also open after logged in:
+- Host page: it will also open after logged in:
 ![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/12.png?raw=true)
 
 ![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/11.png?raw=true)
