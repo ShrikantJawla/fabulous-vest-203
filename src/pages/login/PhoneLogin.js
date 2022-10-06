@@ -1,9 +1,8 @@
 import React from 'react'
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 import { auth } from '../../Configs/firebaseConfigs';
 import {
-    Box, FormControl, FormLabel, Image, Input, InputGroup, InputLeftAddon, Text, VStack, Center,
-    Tabs, TabList, TabPanels, Tab, TabPanel, Button, FormErrorMessage, FormHelperText
+    Box, FormControl, Input, InputGroup, InputLeftAddon, Button, FormErrorMessage, FormHelperText
 } from '@chakra-ui/react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +14,6 @@ const inputShadow = 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1p
 // let num = '+14564564564'
 
 function PhoneLogin() {
-
     const [isValid, setIsValid] = React.useState(false);
     const [mobNum, setMobNum] = React.useState('');
     const [otp, setOtp] = React.useState(0)
@@ -23,6 +21,7 @@ function PhoneLogin() {
     let navigate = useNavigate();
     const { authState, authDispatch } = React.useContext(AuthContext);
     // console.log(authState);
+
 
     function handleInputMobNum(e) {
         setMobNum(e.target.value);
@@ -62,6 +61,7 @@ function PhoneLogin() {
             }).catch((error) => {
                 // Error; SMS not sent
                 alert('Something went wrong!');
+                authDispatch({ type: 'LOADED' });
                 setTakeOtp(false);
                 console.log(error);
             });
@@ -76,7 +76,7 @@ function PhoneLogin() {
             window.confirmationResult.confirm(otp).then((result) => {
                 // User signed in successfully.
                 const user = result.user;
-                // console.log(user);
+                console.log(user);
                 const userDetails = {
                     name: user.displayName,
                     mobile: user.phoneNumber,
@@ -87,6 +87,7 @@ function PhoneLogin() {
                 }
                 authDispatch({ type: 'LOADED' });
                 authDispatch({ type: 'LOGIN', payload: userDetails });
+                // setDoc(doc(db, 'loginedUser', userDetails.email), userDetails);
                 navigate('/');
                 // ...
             }).catch((error) => {

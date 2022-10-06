@@ -10,6 +10,7 @@ import { AiFillCar } from 'react-icons/ai';
 import { CgFileDocument } from 'react-icons/cg';
 import { MdCall } from 'react-icons/md';
 import { RiLogoutCircleRLine } from 'react-icons/ri';
+import { IoHome } from 'react-icons/io5';
 import { AuthContext } from '../Contexts/authContext/authContext';
 import { Link } from 'react-router-dom';
 
@@ -28,7 +29,7 @@ function SideNav1() {
     function displayLoginDetails() {
         let profileIcon;
         if (authState.isAuth) {
-            profileIcon = <Link to={toggleLinkOfProfile()}><Box ml='-8px' display='flex' gap='3' p='3' _hover={{ cursor: 'pointer', bg: 'rgba(0, 0, 0, 0.80)' }} mb='1' bg='black'>
+            profileIcon = <Link to={toggleLinkOfProfile()}><Box onClick={onClose} ml='-8px' display='flex' gap='3' p='3' _hover={{ cursor: 'pointer', bg: 'rgba(0, 0, 0, 0.80)' }} mb='1' bg='black'>
                 <Avatar size='lg' src={authState.userDetails.profilePhoto} />
                 <Box textAlign='left' display='flex' flexDir='column' justifyContent='center' alignItems='flex-start'>
                     {authState.userDetails.name && <Text w='full' fontWeight='bold' fontSize='19px' color='white'>{authState.userDetails.name}</Text>}
@@ -37,7 +38,7 @@ function SideNav1() {
                 </Box>
             </Box></Link>
         } else {
-            profileIcon = <Link to={toggleLinkOfProfile()}><Box display='flex' gap='3' p='3' _hover={hoverStyle} mb='1'>
+            profileIcon = <Link to={toggleLinkOfProfile()}><Box onClick={onClose} display='flex' gap='3' p='3' _hover={hoverStyle} mb='1'>
                 <BsFillPersonFill size='20px' />
                 <Text>Login or Signup</Text>
             </Box></Link>
@@ -48,6 +49,9 @@ function SideNav1() {
 
     function handleLogout() {
         authDispatch({ type: 'LOGOUT' });
+        //deleting the current user from firestore
+        localStorage.setItem('loginedUser', null);
+        onClose();
     }
 
 
@@ -65,13 +69,17 @@ function SideNav1() {
 
                     <DrawerBody pl='2' pr='0' pt='0'>
                         {displayLoginDetails()}
+                        <Link to='/'><Box onClick={onClose} display={{ base: 'flex', lg: 'none' }} gap='3' p='3' mb='1'>
+                            <IoHome size='20px' />
+                            <Text>Home</Text>
+                        </Box></Link>
                         <HStack p='3' _hover={hoverStyle} mb='1'>
                             <HStack gap='1'>
                                 <GoLocation size='20px' />
                                 <Text>Change City</Text>
                             </HStack>
                             <Spacer />
-                            <Text fontWeight='bold' color='green' fontSize='16px'>Delhi NCR</Text>
+                            <Text fontWeight='bold' color='green' fontSize='16px'>{ authState.userDetails.city}</Text>
                         </HStack>
                         <Box display='flex' gap='3' p='3' mb='1'>
                             <AiFillCar size='20px' />
@@ -89,10 +97,10 @@ function SideNav1() {
                             <MdCall size='20px' />
                             <Text>Help & Support</Text>
                         </Box>
-                        {authState.isAuth && <Box onClick={handleLogout} display='flex' gap='3' p='3' _hover={hoverStyle} mb='1' color='red' fontWeight='bold'>
+                        {authState.isAuth && <Link to='/'><Box onClick={handleLogout} display='flex' gap='3' p='3' _hover={hoverStyle} mb='1' color='red' fontWeight='bold'>
                             <RiLogoutCircleRLine size='20px' />
                             <Text>Log out</Text>
-                        </Box>}
+                        </Box></Link>}
                     </DrawerBody>
                 </DrawerContent>
 

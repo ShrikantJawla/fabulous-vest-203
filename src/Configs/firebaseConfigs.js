@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth'
+import { getFirestore } from "firebase/firestore";
+import { setDoc, doc, getDocs, collection, addDoc, updateDoc, deleteDoc, getDoc } from 'firebase/firestore';
+import firebase from 'firebase/compat/app'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,3 +22,34 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+
+const itemCollectionRef = collection(db, 'users');
+
+async function addItems(data) {
+    return addDoc(itemCollectionRef, data);
+}
+
+async function updateItem(id, item) {
+    const itemDoc = doc(db, 'users', id);
+    return updateDoc(itemDoc, item);
+}
+
+async function deleteItem(id) {
+    return deleteDoc(doc(db, 'users', id));
+}
+
+async function getAllItems() {
+    return getDocs(itemCollectionRef);
+}
+
+async function getSingleItem(id) {
+    return getDoc(doc(db, 'users', id));
+}
+
+async function setItemWithId(id, data) {
+    return setDoc(doc(db, 'users', id), data);
+}
+
+export { addItems, updateItem, deleteItem, getAllItems, getSingleItem, setItemWithId }
