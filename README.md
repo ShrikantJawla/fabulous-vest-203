@@ -43,6 +43,47 @@ Start the server
 ```
 
 
+## Below are some of the Screenshots:
+
+- HomePage asks user to enter city and it will pop up only when user has not updated city in his/her profile:
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/8%20(2).png?raw=true)
+
+- Home page without location-updater dialog box:
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/3.jpg?raw=true)
+
+- Some of the cards in HomePage:
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/3.2.png?raw=true)
+
+- Side bar without login:
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/7.png?raw=true)
+
+- Login page:-> it contain sign up fuctionality and all types of login providers like facebook and google and normal signIn, I used firebase to accomplish it.
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/4.png?raw=true)
+
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/5.png?raw=true)
+
+- Pop up of google auth provider: 
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/6.png?raw=true)
+
+- Side bar after user logged in: 
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/8.png?raw=true)
+
+Profile page after user Logged In,
+-  **Used Private routing so that user can open login page only after logged in**
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/7.2.png?raw=true)
+
+Dialog box to choose trip pick up and drop location:
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/2.png?raw=true)
+
+You can see location on map while filling the input box, I wanted to also use pick up functionality on map but google has made that api paid now.
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/9.png?raw=true)
+
+Host page: it will also open after logged in:
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/12.png?raw=true)
+
+![App Screenshot](https://github.com/ShrikantJawla/fabulous-vest-203/blob/main/Project%20ScreenShots/11.png?raw=true)
+
+
 
 ## Tech Stack
 
@@ -63,12 +104,13 @@ While I was creating this project I faced problem in performing all the CRUD ope
 
 
 
+## Authors
+
+- [@Shrikant-Jawla](https://github.com/ShrikantJawla)
+
+
 ## 🛠 Skills
 React, HTML, CSS, Styled-Components, Chakra-UI, Framer-Motion, Firebase
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
 ## 🔗 Links
@@ -86,9 +128,4 @@ React, HTML, CSS, Styled-Components, Chakra-UI, Framer-Motion, Firebase
 ## Feedback
 
 If you have any feedback, please reach out to us at shrikantjawla@gmail.com
-
-
-## Authors
-
-- [@Shrikant-Jawla](https://github.com/ShrikantJawla)
 
