@@ -43,10 +43,6 @@ Start the server
 ```
 
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
 
 ## Tech Stack
 
@@ -69,6 +65,10 @@ While I was creating this project I faced problem in performing all the CRUD ope
 
 ## 🛠 Skills
 React, HTML, CSS, Styled-Components, Chakra-UI, Framer-Motion, Firebase
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
 ## 🔗 Links
