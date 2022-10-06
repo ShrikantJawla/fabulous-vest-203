@@ -67,11 +67,6 @@ While I was creating this project I faced problem in performing all the CRUD ope
 
 
 
-## Authors
-
-- [@Shrikant-Jawla](https://github.com/ShrikantJawla)
-
-
 ## 🛠 Skills
 React, HTML, CSS, Styled-Components, Chakra-UI, Framer-Motion, Firebase
 
@@ -91,4 +86,9 @@ React, HTML, CSS, Styled-Components, Chakra-UI, Framer-Motion, Firebase
 ## Feedback
 
 If you have any feedback, please reach out to us at shrikantjawla@gmail.com
+
+
+## Authors
+
+- [@Shrikant-Jawla](https://github.com/ShrikantJawla)
 
